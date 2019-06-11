@@ -24,7 +24,6 @@ export class AppComponent {
     }
   }
 
-  title = 'AdminPortal';
 
   logout():void{
     this.islogin = false;

@@ -1,0 +1,8 @@
+.message-box .mb-container {
+    position: absolute;
+    left: 30%;
+    top: 15%;
+    background: none !important;
+    padding: 20px;
+    width: 100%;
+}

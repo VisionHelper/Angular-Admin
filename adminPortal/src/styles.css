@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+.input-group-addon{
+    vertical-align: middle;
+}
+textarea{
+    max-width: 350px;
+    min-width: 200px;
+}

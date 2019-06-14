@@ -1,200 +1,218 @@
-<div class="page-title">                    
-  <h2><span class="fa fa-arrow-circle-o-left"></span> Category</h2>
+<div class="page-title">
+    <h2><span class="fa fa-arrow-circle-o-left"></span> Category</h2>
 </div>
 <div class="page-content-wrap">
-                
-  <div class="row">
-      <div class="col-md-12">
-          
-          <form class="form-horizontal">
-                                          
-              <div class="panel panel-default tabs">                            
-                  <ul class="nav nav-tabs" role="tablist">
-                      <li class="active"><a href="#Category" role="tab" data-toggle="tab">Category</a></li>
-                      <li><a href="#Sub-Category" role="tab" data-toggle="tab">Sub-Category</a></li>
-                 </ul>
-                  <div class="panel-body tab-content">
-                      <div class="tab-pane active" id="Category">
-                        <div class="page-content-wrap">                
-                
-                          <div class="row">
-                              <div class="col-md-12">
-      
-                                  <!-- START DEFAULT DATATABLE -->
-                                  <div class="panel panel-default">
-                                      <div class="panel-heading">                                
-                                          <h3 class="panel-title">Category List</h3>
-                                          <ul class="panel-controls">
-                                              <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                                              <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                              <!-- <li><a data-box="#AddCategory"><span class="fa fa-times"></span></a></li> -->
-                                              <li>  <a class="mb-control" data-box="#add-Category"><span class="fa fa-plus-square"></span></a></li>
-                                          </ul>                                
-                                      </div>
-                                      <div class="panel-body">
-                                          <table class="table datatable">
-                                              <thead>
-                                                  <tr>
-                                                      <th>Name</th>
-                                                      <th>Position</th>
-                                                      <th>Office</th>
-                                                      <th>Age</th>
-                                                      <th>Start date</th>
-                                                      <th>Salary</th>
-                                                  </tr>
-                                              </thead>
-                                              <tbody>
-                                                  <tr>
-                                                      <td>Tiger Nixon</td>
-                                                      <td>System Architect</td>
-                                                      <td>Edinburgh</td>
-                                                      <td>61</td>
-                                                      <td>2011/04/25</td>
-                                                      <td>$320,800</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td>Garrett Winters</td>
-                                                      <td>Accountant</td>
-                                                      <td>Tokyo</td>
-                                                      <td>63</td>
-                                                      <td>2011/07/25</td>
-                                                      <td>$170,750</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td>Ashton Cox</td>
-                                                      <td>Junior Technical Author</td>
-                                                      <td>San Francisco</td>
-                                                      <td>66</td>
-                                                      <td>2009/01/12</td>
-                                                      <td>$86,000</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td>Cedric Kelly</td>
-                                                      <td>Senior Javascript Developer</td>
-                                                      <td>Edinburgh</td>
-                                                      <td>22</td>
-                                                      <td>2012/03/29</td>
-                                                      <td>$433,060</td>
-                                                  </tr>
-                                              </tbody>
-                                          </table>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>                                
-                        </div> 
-                      </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <form class="form-horizontal">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#Category" role="tab" data-toggle="tab">Category</a></li>
+                        <li><a href="#Sub-Category" role="tab" data-toggle="tab">Sub-Category</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="Category">
+                            <div class="page-content-wrap">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- START DEFAULT DATATABLE -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Category List</h3>
+                                                <ul class="panel-controls">
+                                                    <li><a href="#" class="panel-collapse"><span
+                                                                class="fa fa-angle-down"></span></a></li>
+                                                    <li><a href="#" class="panel-refresh"><span
+                                                                class="fa fa-refresh"></span></a></li>
+                                                    <li><a data-toggle="modal" data-target="#add-Category" (click)="category={};"><span
+                                                                class="fa fa-plus-square"></span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr.No</th>
+                                                            <th>Name</th>
+                                                            <th>Description</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let category of categories; let i = index">
+                                                            <td>{{i+1}}</td>
+                                                            <td>{{category.name}}</td>
+                                                            <td>{{category.description}}</td>
+                                                            <th><i class="fa fa-edit" title="Edit" (click)="editCategory(category);"> </i>&nbsp; &nbsp; <i class="fa fa-trash-o" title="Delete"></i></th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-                      <div class="tab-pane" id="Sub-Category">
-                         <div class="page-content-wrap">                
-                
-                          <div class="row">
-                              <div class="col-md-12">
-      
-                                  <!-- START DEFAULT DATATABLE -->
-                                  <div class="panel panel-default">
-                                      <div class="panel-heading">                                
-                                          <h3 class="panel-title">Sub-Category List</h3>
-                                          <ul class="panel-controls">
-                                              <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                                              <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                              <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-                                          </ul>                                
-                                      </div>
-                                      <div class="panel-body">
-                                          <table class="table datatable">
-                                              <thead>
-                                                  <tr>
-                                                      <th>Name</th>
-                                                      <th>Position</th>
-                                                      <th>Office</th>
-                                                      <th>Age</th>
-                                                      <th>Start date</th>
-                                                      <th>Salary</th>
-                                                  </tr>
-                                              </thead>
-                                              <tbody>
-                                                  <tr>
-                                                      <td>Tiger Nixon</td>
-                                                      <td>System Architect</td>
-                                                      <td>Edinburgh</td>
-                                                      <td>61</td>
-                                                      <td>2011/04/25</td>
-                                                      <td>$320,800</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td>Garrett Winters</td>
-                                                      <td>Accountant</td>
-                                                      <td>Tokyo</td>
-                                                      <td>63</td>
-                                                      <td>2011/07/25</td>
-                                                      <td>$170,750</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td>Ashton Cox</td>
-                                                      <td>Junior Technical Author</td>
-                                                      <td>San Francisco</td>
-                                                      <td>66</td>
-                                                      <td>2009/01/12</td>
-                                                      <td>$86,000</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td>Cedric Kelly</td>
-                                                      <td>Senior Javascript Developer</td>
-                                                      <td>Edinburgh</td>
-                                                      <td>22</td>
-                                                      <td>2012/03/29</td>
-                                                      <td>$433,060</td>
-                                                  </tr>
-                                              </tbody>
-                                          </table>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>                                
-                        </div>   
-                      </div>   
-                  </div>
-              </div>                                
-          
-          </form>
-          
-      </div>
-  </div>                    
-  
+                        <div class="tab-pane" id="Sub-Category">
+                            <div class="page-content-wrap">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- START DEFAULT DATATABLE -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Sub-Category List</h3>
+                                                <ul class="panel-controls">
+                                                    <li><a href="#" class="panel-collapse"><span
+                                                                class="fa fa-angle-down"></span></a></li>
+                                                    <li><a href="#" class="panel-refresh"><span
+                                                                class="fa fa-refresh"></span></a></li>
+                                                    <li><a data-toggle="modal" data-target="#add-SubCategory" (click)="sub_Category={};"><span
+                                                                class="fa fa-plus-square"></span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table datatable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr.No</th>
+                                                            <th>Name</th>
+                                                            <th>Description</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                                    <th>Sr.No</th>
+                                                                    <th>Name</th>
+                                                                    <th>Description</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                        <tr *ngFor="let sub_Category of sub_Categories; let i = index">
+                                                            <td>{{i+1}}</td>
+                                                            <td>{{sub_Category.name}}</td>
+                                                            <td>{{sub_Category.description}}</td>
+                                                            <th><i class="fa fa-edit" (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp; <i class="fa fa-trash-o" title="Delete"></i></th>
+                                                       
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
 </div>
 
 
+<!-- Modal -->
+<div id="add-Category" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-<div class="message-box animated fadeIn" data-sound="alert" id="add-Category">
-  <div class="mb-container">
-       <div class="col-md-4">
-              <div class="panel panel-colorful">
-                  <div class="panel-body">
-                      <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
-                  
-                      <h2>Contact</h2>
-                      <p>Feel free to contact us for any issues you might have with our products.</p>
-                      <div class="form-group">
-                          <label>E-mail</label>
-                          <input type="email" class="form-control" placeholder="youremail@domain.com"/>
-                      </div>
-                      <div class="form-group">
-                          <label>Subject</label>
-                          <input type="email" class="form-control" placeholder="Message subject"/>
-                      </div>                                
-                      <div class="form-group">
-                          <label>Message</label>
-                          <textarea class="form-control" placeholder="Your message" rows="3"></textarea>
-                      </div>                                
-                  </div>
-                  <div class="panel-footer"> 
-                      <button class="btn btn-success pull-right">Send</button>
-                  </div>
-              </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Category</h4>
             </div>
-  </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Name</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="text" class="form-control" [(ngModel)]="category.name"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Description</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <textarea class="form-control" [(ngModel)]="category.description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="addCategory()">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
+<div id="add-SubCategory" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Sub-Category</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <div class=" row form-group">
+                        <label class="col-md-3 control-label">Default</label>
+                        <div class="col-md-6">
+                            <select class="form-control select" [(ngModel)]="sub_Category.categoryId" ng-options="item.subItem as item.label for item in items track by item.id">
+                                <option *ngFor="let category of categories; let i = index" [value]="category.description">{{category.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Name</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="text" class="form-control" [(ngModel)]="sub_Category.name"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Description</label>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <textarea class="form-control" [(ngModel)]="sub_Category.description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="addSubCategory()">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->

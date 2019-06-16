@@ -8,12 +8,12 @@
         <div *ngIf="islogin" class="page-container">
             
             <!-- START PAGE SIDEBAR -->
-            <div class="page-sidebar" style="height:615px">
+            <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
                         <a href="#">Vision Admin</a>
-                       
+                        <a class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
                         <a href="#" class="profile-mini">
@@ -38,8 +38,14 @@
                     <li class="active">
                         <a routerLink="/dashboard"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>                        
                     </li>                    
-                    <li>
+                    <li class="">
                         <a routerLink="/category"><span class="fa fa-files-o"></span> <span class="xn-text">Category</span></a>
+                    </li>                  
+                    <li class="">
+                        <a routerLink="/jobSeeker"><span class="fa fa-user"></span> <span class="xn-text">Job-Seeker</span></a>
+                    </li>           
+                    <li class="">
+                        <a routerLink="/employer"><span class="fa fa-user"></span> <span class="xn-text">Employer</span></a>
                     </li>
                 </ul>
                 <!-- END X-NAVIGATION -->
@@ -65,7 +71,7 @@
                     <!-- END SEARCH -->
                     <!-- SIGN OUT -->
                     <li class="xn-icon-button pull-right">
-                        <a class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
+                        <a class="mb-control cursorPointer" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
                     </li> 
                     <!-- END SIGN OUT -->
                     <!-- MESSAGES -->
@@ -86,7 +92,7 @@
 
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>                    
+                    <li><a routerLink="/dashboard">Home</a></li>                    
                     <li class="active">Dashboard</li>
                 </ul>
                 <!-- END BREADCRUMB -->                       

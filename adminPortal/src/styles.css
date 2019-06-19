@@ -6,3 +6,7 @@ textarea{
     max-width: 350px;
     min-width: 200px;
 }
+
+.cursorPointer{
+    cursor: pointer;
+}

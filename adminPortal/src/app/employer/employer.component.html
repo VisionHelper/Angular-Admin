@@ -1,0 +1,151 @@
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+  <div class="row" *ngIf="pageSection=='list'">
+    <div class="col-md-12">
+
+      <!-- START DEFAULT DATATABLE -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Default</h3>
+          <ul class="panel-controls">
+            <li><a class="panel-collapse cursorPointer"><span class="fa fa-angle-down"></span></a></li>
+            <li><a class="panel-refresh cursorPointer"><span class="fa fa-refresh"></span></a></li>
+            <li><a class="cursorPointer" title="Add" (click)="pageSection='add'; employer={}"><span class="fa fa-plus-square"></span></a></li>
+          </ul>
+        </div>
+        <div class="panel-body">
+          <table class="table datatable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+              </tr>
+              <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>2011/07/25</td>
+                <td>$170,750</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- END DEFAULT DATATABLE -->
+
+    </div>
+  </div>
+
+  <div class="row" *ngIf="pageSection=='add'">
+    <div class="col-md-12">
+
+      <form class="form-horizontal">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Add Employer</strong></h3>
+            <ul class="panel-controls">
+              <li><a class="cursorPointer" title="Close" (click)="pageSection='list'; employer={}"><span class="fa fa-times"></span></a></li>
+             </ul>
+          </div>
+          <div class="panel-body">
+
+            <div class="form-group">
+              <label class="col-md-3 col-xs-12 control-label">Name</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 col-xs-12 control-label">Email</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 col-xs-12 control-label">Contact No</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 col-xs-12 control-label">Referal Code</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 col-xs-12 control-label">City</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 col-xs-12 control-label">Area</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 col-xs-12 control-label">Preferred Location Length</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="panel-footer">
+            <button class="btn btn-default">Clear Form</button>
+            <button class="btn btn-primary pull-right">Submit</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+<!-- END PAGE CONTENT WRAPPER -->

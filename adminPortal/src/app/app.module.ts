@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryComponent } from './category/category.component';
+import { JobSeekerComponent } from './job-seeker/job-seeker.component';
+import { EmployerComponent } from './employer/employer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    CategoryComponent
+    CategoryComponent,
+    JobSeekerComponent,
+    EmployerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,3 @@
-<div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left"></span> Category</h2>
-</div>
 <div class="page-content-wrap">
 
     <div class="row">
@@ -71,11 +68,11 @@
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Sub-Category List</h3>
                                                 <ul class="panel-controls">
-                                                    <li><a href="#" class="panel-collapse"><span
+                                                    <li><a  class="panel-collapse cursorPointer"><span
                                                                 class="fa fa-angle-down"></span></a></li>
-                                                    <li><a href="#" class="panel-refresh"><span
+                                                    <li><a class="panel-refresh cursorPointer"><span
                                                                 class="fa fa-refresh"></span></a></li>
-                                                    <li><a data-toggle="modal" data-target="#add-SubCategory" (click)="sub_Category={};"><span
+                                                    <li><a class="cursorPointer" data-toggle="modal" data-target="#add-SubCategory" (click)="sub_Category={};"><span
                                                                 class="fa fa-plus-square"></span></a></li>
                                                 </ul>
                                             </div>
@@ -90,18 +87,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                            <tr>
-                                                                    <th>Sr.No</th>
-                                                                    <th>Name</th>
-                                                                    <th>Description</th>
-                                                                    <th>Action</th>
-                                                                </tr>
                                                         <tr *ngFor="let sub_Category of sub_Categories; let i = index">
                                                             <td>{{i+1}}</td>
                                                             <td>{{sub_Category.name}}</td>
                                                             <td>{{sub_Category.description}}</td>
                                                             <th><i class="fa fa-edit" (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp; <i class="fa fa-trash-o" title="Delete"></i></th>
-                                                       
                                                         </tr>
                                                     </tbody>
                                                 </table>

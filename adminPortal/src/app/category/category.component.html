@@ -31,24 +31,31 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table datatable">
+                                                <table class="table">
                                                     <thead>
                                                         <tr>
                                                             <th>Sr.No</th>
                                                             <th>Name</th>
                                                             <th>Description</th>
+                                                            <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let category of categories; let i = index">
-                                                            <td>{{i+1}}</td>
-                                                            <td>{{category.name}}</td>
-                                                            <td>{{category.description}}</td>
-                                                            <th><i class="fa fa-edit" title="Edit" (click)="editCategory(category);"> </i>&nbsp; &nbsp; <i class="fa fa-trash-o" title="Delete"></i></th>
+                                                        <tr *ngFor="let categoryObj of categories | paginate: { id: 'category',
+                                                        itemsPerPage: 10,
+                                                        currentPage: p,
+                                                        totalItems: categories.length }; let i = index">
+                                                            <td>{{(p*10-10)+(i+1)}}</td>
+                                                            <td>{{categoryObj.categoryName}}</td>
+                                                            <td>{{categoryObj.description}}</td>
+                                                            <td>{{categoryObj.status}}</td>
+                                                            <th><i class="fa fa-edit" title="Edit" (click)="editCategory(categoryObj);"> </i>&nbsp; &nbsp; <i class="fa fa-trash-o" title="Delete"></i></th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <pagination-controls id="category" (pageChange)="p = $event">
+                                                </pagination-controls>
                                             </div>
                                         </div>
                                     </div>
@@ -58,7 +65,7 @@
 
 
                         <div class="tab-pane" id="Sub-Category">
-                            <div class="page-content-wrap">
+                            <div class="page-content-wrap" >
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -129,7 +136,7 @@
                         <div class="col-md-6 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input type="text" class="form-control" [(ngModel)]="category.name"/>
+                                <input type="text" class="form-control" [(ngModel)]="category.categoryName"/>
                             </div>
                         </div>
                     </div>
@@ -146,7 +153,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" (click)="addCategory()">Submit</button>
+                <button *ngIf="!(category.categoryId)" class="btn btn-primary" (click)="addCategory()">Submit</button>
+                <button *ngIf ="category.categoryId" class="btn btn-primary" (click)="addCategory()">Update</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -206,3 +214,23 @@
     </div>
 </div>
 <!-- Modal -->
+
+<!-- Modal -->
+<div id="add-Category" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Are You Sure You and to Delete  </h4>
+            </div>
+           
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="deleteCategory(Obj)">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

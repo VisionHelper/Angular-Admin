@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AppService } from '../app.service';
+import { Category } from './category';
+import { from } from 'rxjs';
+
 declare var $ :any;
 @Component({
   selector: 'app-category',
@@ -6,26 +10,52 @@ declare var $ :any;
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  category = {};
-  categories = [];
+  
+  constructor( private AppService: AppService) { }
+
+  category : any = {};
+  categories : any = []; 
   sub_Category = {};
   sub_Categories = [];
-  constructor() { }
+  p: number = 1;
 
   ngOnInit() {
+    this.getCategory();
   }
   
-  addCategory(): void{
-    this.categories.push(this.category);
-    $("#add-Category").modal("hide");
-    this.category = {};
+  getCategory(){
+    this.AppService.getCategory().subscribe(data => {
+      console.log(data);
+      this.categories = data;
+    })
   }
 
+  addCategory(): void{
+    this.category.createdDate = "2010-12-22 02:05:23";
+    this.category.updatedDate = "2010-12-22 02:05:23";
+    this.category.status = "Active";
+    if(!this.category.categoryId){
+      this.AppService.addCategory(this.category).subscribe((data)=>{
+      $("#add-Category").modal("hide");
+      this.category = new Category;
+      this.getCategory();
+      });
+    }else{
+      this.AppService.editCategory(this.category).subscribe((data)=>{
+      $("#add-Category").modal("hide");
+      this.category = new Category;
+      this.getCategory();
+      });
+    }
+  }
+
+  deleteCategory(){
+    
+  }
   
   editCategory(category:any): void{
     this.category = Object.assign({},category);
     $("#add-Category").modal("show");
-
   }
 
   addSubCategory(): void{
@@ -39,5 +69,8 @@ export class CategoryComponent implements OnInit {
     $("#add-SubCategory").modal("show");
 
   }
+
+  
+
 
 }

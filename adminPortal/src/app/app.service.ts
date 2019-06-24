@@ -1,8 +1,14 @@
-
-
 import { Injectable } from '@angular/core';
-
+import { ActivatedRoute,Router } from "@angular/router";
 import { Subject } from "rxjs";
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { AppConstants } from './app.constants'
+import { Category } from './category/category';
+import { Observable, of } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +16,12 @@ import { Subject } from "rxjs";
 export class AppService {
 
   public subject = new Subject<any>();
-
-    constructor() {
+ 
+    constructor(private router: Router, private http: HttpClient) {
+      if(!sessionStorage.getItem('dataSource') || sessionStorage.getItem('dataSource')=='false'){
+        this.checkLogin(null);
+        this.router.navigate(["/login"]);
+      }
        /* this.myMethod$ = this.myMethodSubject.asObservable();*/
     }
 
@@ -20,4 +30,23 @@ export class AppService {
         // we can do stuff with data if we want
         this.subject.next(data);
     }
+
+    getCategory():Observable<Category>{
+      return this.http.get<Category>(AppConstants.category);
+    }
+  
+    
+    addCategory(categoryObj:any) :Observable<Category>{
+     return this.http.post<Category>(AppConstants.category,categoryObj);
+    }
+
+    editCategory(categoryObj:any) :Observable<Category>{
+      return this.http.put<Category>(AppConstants.category,categoryObj);
+     }
+ 
+    getCites(){
+      return this.http.get(AppConstants.cities);
+    }
+
+
 }

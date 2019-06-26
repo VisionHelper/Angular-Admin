@@ -42,7 +42,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let categoryObj of categories | paginate: { id: 'category',
+                                                        <tr *ngFor="let categoryObj of categories | paginate: { id: 'categoryPagination',
                                                         itemsPerPage: 10,
                                                         currentPage: p,
                                                         totalItems: categories.length }; let i = index">
@@ -50,11 +50,12 @@
                                                             <td>{{categoryObj.categoryName}}</td>
                                                             <td>{{categoryObj.description}}</td>
                                                             <td>{{categoryObj.status}}</td>
-                                                            <th><i class="fa fa-edit" title="Edit" (click)="editCategory(categoryObj);"> </i>&nbsp; &nbsp; <i class="fa fa-trash-o" title="Delete"></i></th>
+                                                            <th><i class="fa fa-edit" title="Edit" (click)="editCategory(categoryObj);"> </i>&nbsp; &nbsp;
+                                                                <i class="fa fa-trash-o" title="Delete" (click)="deleteCategory(categoryObj.categoryId)"></i></th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <pagination-controls id="category" (pageChange)="p = $event">
+                                                <pagination-controls id="categoryPagination" (pageChange)="p = $event">
                                                 </pagination-controls>
                                             </div>
                                         </div>
@@ -84,24 +85,30 @@
                                                 </ul>
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table datatable">
+                                                <table class="table">
                                                     <thead>
                                                         <tr>
                                                             <th>Sr.No</th>
                                                             <th>Name</th>
                                                             <th>Description</th>
+                                                            <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let sub_Category of sub_Categories; let i = index">
-                                                            <td>{{i+1}}</td>
-                                                            <td>{{sub_Category.name}}</td>
+                                                        <tr *ngFor="let sub_Category of sub_Categories | paginate: { id: 'SubcategoryPagination',
+                                                            itemsPerPage: 10, currentPage: p, totalItems: sub_Categories.length }; let i = index">
+                                                            <td>{{(p*10-10)+(i+1)}}</td>
+                                                            <td>{{sub_Category.subCategoryName}}</td>
                                                             <td>{{sub_Category.description}}</td>
-                                                            <th><i class="fa fa-edit" (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp; <i class="fa fa-trash-o" title="Delete"></i></th>
+                                                            <td>{{sub_Category.status}}</td>
+                                                            <th><i class="fa fa-edit" (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp;
+                                                                 <i class="fa fa-trash-o" title="Delete" (click)="deleteSubCategory(sub_Category.subCategoryId);"></i></th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <pagination-controls id="SubcategoryPagination" (pageChange)="p = $event">
+                                                </pagination-controls>
                                             </div>
                                         </div>
                                     </div>
@@ -176,8 +183,8 @@
                     <div class=" row form-group">
                         <label class="col-md-3 control-label">Default</label>
                         <div class="col-md-6">
-                            <select class="form-control select" [(ngModel)]="sub_Category.categoryId" ng-options="item.subItem as item.label for item in items track by item.id">
-                                <option *ngFor="let category of categories; let i = index" [value]="category.description">{{category.name}}</option>
+                            <select class="form-control select"  [(ngModel)]="sub_Category.categoryId">
+                                <option *ngFor="let category of categories; let i = index" [value]="category.categoryId">{{category.categoryName}}</option>
                             </select>
                         </div>
                     </div>
@@ -186,7 +193,7 @@
                         <div class="col-md-6 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input type="text" class="form-control" [(ngModel)]="sub_Category.name"/>
+                                <input type="text" class="form-control" [(ngModel)]="sub_Category.subCategoryName"/>
                             </div>
                         </div>
                     </div>
@@ -215,22 +222,3 @@
 </div>
 <!-- Modal -->
 
-<!-- Modal -->
-<div id="add-Category" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Are You Sure You and to Delete  </h4>
-            </div>
-           
-            <div class="modal-footer">
-                <button class="btn btn-primary" (click)="deleteCategory(Obj)">Update</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>

@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryComponent } from './category/category.component';
 import { JobSeekerComponent } from './job-seeker/job-seeker.component';
 import { EmployerComponent } from './employer/employer.component';
+import { FilterbyPipe } from './filterby.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EmployerComponent } from './employer/employer.component';
     DashboardComponent,
     CategoryComponent,
     JobSeekerComponent,
-    EmployerComponent
+    EmployerComponent,
+    FilterbyPipe
   ],
   imports: [
     BrowserModule,

@@ -13,31 +13,23 @@ export class JobSeekerComponent implements OnInit {
   jobSeekers = []
   constructor(private AppService :AppService) { }
 
-  dropdownList = [];
-  selectedItems = [];
-  MultSelect = {};
-  singleSelect = {};
+  dropdownList : any = [];
+  selectedItems : any = [];
+  workAreasDetails : any = [];
+  MultSelect : any= {};
+  singleSelect : any = {};
 
   ngOnInit() {
-    this.getCites();
+    this.getCities();
     this.pageSection = 'list';
-    this.jobSeeker.AddCityArea = [];
-    this.jobSeeker.AddCityArea.push({
-      city:'',
-      area:''
+    this.jobSeeker.workAreas = [];
+    this.jobSeeker.workAreas.push({
+      "areaId": null,
+      "areaName": null,
+      "cityId": null,
+      "cityName": null
     });
 
-    this.dropdownList = [
-      { item_id: 1, cit: 'Mumbai' },
-      { item_id: 2, city: 'Bangaluru' },
-      { item_id: 3, cit: 'yPune' },
-      { item_id: 4, city: 'Navsari' },
-      { item_id: 5, city: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, city: 'Pune' },
-      { item_id: 4, city: 'Navsari' }
-    ];
     this.MultSelect = {
       singleSelection: false,
       idField: 'item_id',
@@ -47,6 +39,20 @@ export class JobSeekerComponent implements OnInit {
       itemsShowLimit: 5,
       allowSearchFilter: true
     };
+
+    this.dropdownList = [
+      { item_id: 1, city: 'Mumbai' },
+      { item_id: 2, city: 'Bangaluru' },
+      { item_id: 3, city: 'Pune' },
+      { item_id: 4, city: 'Navsari' },
+      { item_id: 5, city: 'New Delhi' }
+    ];
+
+    this.selectedItems = [
+      { item_id: 3, city: 'Pune' },
+      { item_id: 4, city: 'Navsari' }
+    ];
+    
     this.singleSelect = {
       singleSelection: true,
       idField: 'item_id',
@@ -60,16 +66,25 @@ export class JobSeekerComponent implements OnInit {
     console.log(items);
   }
 
-  getCites(){
-    this.AppService.getCites().subscribe(cities =>{
-      console.log(cities);
+  getCities(){
+    this.AppService.getCities().subscribe(data =>{
+      if(data.success){
+        this.workAreasDetails = data.data;
+      }
+    });
+  };
+
+  
+  getSkills(){
+    this.AppService.getSkills().subscribe(skills =>{
+      console.log(skills);
     })
-  }
+  };
 
   addJobSeeker():void{
-    this.jobSeekers.push(this.jobSeeker);
-    this.jobSeeker = {};
-    this.pageSection = 'list';
+    console.log(this.jobSeeker);
+    // this.jobSeeker = {};
+    // this.pageSection = 'list';
   };
 
   editJobSeeker(jobSeeker:any):void{
@@ -77,10 +92,12 @@ export class JobSeekerComponent implements OnInit {
     this.jobSeeker = Object.assign({},jobSeeker)
   }
 
-  AddCityArea():void{
-    this.jobSeeker.AddCityArea.push({
-      city:'',
-      area:''
+  AddWorkAreas():void{
+    this.jobSeeker.workAreas.push({
+      "areaId": null,
+      "areaName": null,
+      "cityId": null,
+      "cityName": null
     })
   }
   removeCityArea(index:number):void{

@@ -81,7 +81,7 @@
                     </div>
                   </div>
                 </div>
-
+                <!-- 
                 <div class="row form-group">
                   <label class="col-md-3 col-xs-12 control-label">Address</label>
                   <div class="col-md-6 col-xs-12">
@@ -90,26 +90,26 @@
                       <input type="text" class="form-control" [(ngModel)]="jobSeeker.address" />
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="row form-group">
-                    <label class="col-md-3 col-xs-12 control-label">City</label>
+                  <label class="col-md-3 col-xs-12 control-label">City</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
+                      <input type="text" class="form-control" [(ngModel)]="jobSeeker.city" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-md-3 col-xs-12 control-label">Area</label>
                     <div class="col-md-6 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
-                        <input type="text" class="form-control" [(ngModel)]="jobSeeker.addresscity" />
+                        <input type="text" class="form-control" [(ngModel)]="jobSeeker.area" />
                       </div>
                     </div>
-                  </div>
-                  <div class="row form-group">
-                      <label class="col-md-3 col-xs-12 control-label">Area</label>
-                      <div class="col-md-6 col-xs-12">
-                        <div class="input-group">
-                          <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
-                          <input type="text" class="form-control" [(ngModel)]="jobSeeker.addressarea" />
-                        </div>
-                      </div>
-                    </div>
+                </div>
 
                 <div class="row form-group">
                   <label class="col-md-3 col-xs-12 control-label">Mobile No</label>
@@ -150,7 +150,7 @@
                   <div class="col-md-6 col-xs-12">
                     <div class="input-group">
                       <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                      <input type="text" class="form-control" [(ngModel)]="jobSeeker.DOB" />
+                      <input type="date" class="form-control" [(ngModel)]="jobSeeker.birthDate" />
                     </div>
                   </div>
                 </div>
@@ -159,13 +159,15 @@
                   <label class="col-md-3 col-xs-12 control-label">I Can Work In</label>
                 </div>
 
-                <div class="row form-group" *ngFor="let CityArea of jobSeeker.AddCityArea; let i = index">
+                <div class="row form-group" *ngFor="let workArea of jobSeeker.workAreas; let i = index">
                   <div class="col-md-5 col-xs-12">
                     <label class="col-md-3 col-xs-12 control-label">City</label>
                     <div class="col-md-6 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
-                        <input type="text" class="form-control" [(ngModel)]="jobSeeker.city" />
+                        <select class="form-control select" (change)="jobSeeker.workAreas[i].cityName=workAreaCity.cityName" [(ngModel)]="jobSeeker.workAreas[i].cityId">
+                          <option *ngFor="let workAreaCity of workAreasDetails;" (change)="addJobSeeker();" [value]="workAreaCity.cityId">{{workAreaCity.cityName}}</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -175,16 +177,18 @@
                     <div class="col-md-6 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
-                        <input type="text" class="form-control" [(ngModel)]="jobSeeker.area" />
-
+                        <!-- <input type="text" class="form-control" [(ngModel)]="jobSeeker.area" /> -->
+                        <select class="form-control select" (change)="jobSeeker.workAreas[i].areaName=CityWorkArea.areaName" [(ngModel)]="jobSeeker.workAreas[i].areaId">
+                          <option *ngFor="let CityWorkArea of workAreasDetails | filterby : jobSeeker.workAreas[i].cityId;" [value]="CityWorkArea.areaId">{{CityWorkArea.areaName}}</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-3 col-xs-12">
                             <ul class="panel-controls">
-                              <li *ngIf="i==jobSeeker.AddCityArea.length-1 && jobSeeker.AddCityArea.length<5"><a class="cursorPointer" title="Add" (click)="AddCityArea();"><span
+                              <li *ngIf="i==jobSeeker.workAreas.length-1 && jobSeeker.workAreas.length<5"><a class="cursorPointer" title="Add" (click)="AddWorkAreas();"><span
                                     class="fa fa-plus-square"></span></a>
                               </li>
-                              <li *ngIf="i!=jobSeeker.AddCityArea.length-1"><a class="cursorPointer" title="Remove" (click)="removeCityArea(i);"><span
+                              <li *ngIf="i!=jobSeeker.workAreas.length-1"><a class="cursorPointer" title="Remove" (click)="removeCityArea(i);"><span
                                 class="fa fa-minus-square"></span></a>
                               </li>
                             </ul>
@@ -204,9 +208,14 @@
                       </div>
                     </div>
                 </div>
-
+                <div class="panel-footer"> 
+                  <button class="btn btn-primary pull-right" (click)="addJobSeeker()">Submit</button>
+               </div>
               </div>
             </div>
+
+
+
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h4 class="panel-title">
@@ -644,7 +653,6 @@
         </div>
         <div class="panel-footer">
           <button class="btn btn-default" (click)="jobSeeker={}">Clear Form</button>
-          <button class="btn btn-primary pull-right" (click)="addJobSeeker()">Submit</button>
         </div>
       </div>
 

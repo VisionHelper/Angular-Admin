@@ -15,12 +15,13 @@ export class CategoryComponent implements OnInit {
 
   category : any = {};
   categories : any = []; 
-  sub_Category = {};
-  sub_Categories = [];
+  sub_Category : any = {};
+  sub_Categories : any = [];
   p: number = 1;
 
   ngOnInit() {
     this.getCategory();
+    this.getSubCategory();
   }
   
   getCategory(){
@@ -49,27 +50,60 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  deleteCategory(){
-    
-  }
   
   editCategory(category:any): void{
     this.category = Object.assign({},category);
     $("#add-Category").modal("show");
-  }
+  };
+
+  deleteCategory(categoryId:any){
+    let isDelete = confirm("Are you sure you want to delete Category");
+    if(isDelete==true){
+      this.AppService.deleteCategory(categoryId).subscribe(data => {
+         this.getCategory();
+      });
+    }
+  };
+  
+  getSubCategory(){
+      this.AppService.getSubCategory().subscribe(data => {
+      console.log(data);
+      this.sub_Categories = data;
+    })
+  };
 
   addSubCategory(): void{
-    this.sub_Categories.push(this.sub_Category);
-    $("#add-SubCategory").modal("hide");
-    this.sub_Category = {};
-  }
+    this.sub_Category.createdDate = "2010-12-22 02:05:23";
+    this.sub_Category.updatedDate = "2010-12-22 02:05:23";
+    this.sub_Category.status = "Active";
+    if(!this.sub_Category.subCategoryId){
+      this.AppService.addSubCategory(this.sub_Category).subscribe((data)=>{
+        $("#add-SubCategory").modal("hide");
+      this.sub_Category = {};
+      this.getSubCategory();
+      });
+    }else{
+      this.AppService.editSubCategory(this.sub_Category).subscribe((data)=>{
+        $("#add-SubCategory").modal("hide");
+      this.sub_Category = {};
+      this.getSubCategory();
+      });
+    }
+  };
 
   editSubCategory(sub_Category:any): void{
     this.sub_Category = Object.assign({},sub_Category);
     $("#add-SubCategory").modal("show");
+  };
 
-  }
-
+  deleteSubCategory(subCategoryId:any){
+    let isDelete = confirm("Are you sure you want to delete Sub Category");
+    if(isDelete==true){
+      this.AppService.deleteSubCategory(subCategoryId).subscribe(data => {
+         this.getSubCategory();
+      });
+    }
+  };
   
 
 

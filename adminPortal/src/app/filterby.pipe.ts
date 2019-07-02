@@ -5,14 +5,43 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterbyPipe implements PipeTransform {
 
-  transform(array: any, args?: any): any {
+  transform(array: any, filtertype:any, args?: any): any {
 
-    if (!array || !args) {
-      return null;
-  }
+  
   // filter items array, items which match and return true will be
   // kept, false will be filtered out
-  return array.filter(item => item.cityId == parseInt(args))[0].areas;
+    if(filtertype=='workAreas'){
+      if (!array || !args) {
+        return null;
+      }
+      return array.filter(item => item.cityId == parseInt(args))[0].areas;
+    }
+
+    if(filtertype=='skillsDetails'){
+      if (!array || !args) {
+        return null;
+      };
+      var skillIds = [];
+      args.forEach(element => {
+        skillIds.push(element.categoryId);
+      });
+      console.log(skillIds);
+      console.log(array.filter(item => skillIds.indexOf(item.categoryId)<-1));
+      return array.filter(item => (skillIds.indexOf(item.categoryId)>-1 && item.subCategories.length));
+
+    }
+
+    if(filtertype=='CategoryWithSubCategory'){
+      if (!array) {
+        return null;
+      };
+
+      return array.filter(item => (item.subCategories.length));
+
+    }
+
+
+
   }
 
 }

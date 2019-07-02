@@ -1,6 +1,6 @@
 <!-- PAGE CONTENT WRAPPER -->
 <div class="page-content-wrap">
-
+  <ngx-spinner></ngx-spinner>
   <div class="row" *ngIf="pageSection=='list'">
     <div class="col-md-12">
 
@@ -25,19 +25,17 @@
                 <th>Contact No</th>
                 <th>City</th>
                 <th>Area</th>
-                <th>Referal Code</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let jobSeeker of jobSeekers; let i = index">
+              <tr *ngFor="let jobSeeker of jobSeekersList; let i = index">
                 <td>{{i+1}}</td>
                 <td>{{jobSeeker.name}}</td>
                 <td>{{jobSeeker.email}}</td>
-                <td>{{jobSeeker.contactNo}}</td>
+                <td>{{jobSeeker.mobileNum}}</td>
                 <td>{{jobSeeker.city}}</td>
                 <td>{{jobSeeker.area}}</td>
-                <td>{{jobSeeker.referalCode}}</td>
                 <th><i class="fa fa-edit cursorPointer" (click)="editJobSeeker(jobSeeker);" title="Edit"> </i>&nbsp;
                   &nbsp; <i class="fa fa-trash-o cursorPointer" title="Delete"></i></th>
               </tr>
@@ -116,7 +114,7 @@
                   <div class="col-md-6 col-xs-12">
                     <div class="input-group">
                       <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-                      <input type="text" class="form-control" [(ngModel)]="jobSeeker.mobileNo" />
+                      <input type="text" class="form-control" [(ngModel)]="jobSeeker.mobileNum" />
                     </div>
                   </div>
                 </div>
@@ -165,7 +163,7 @@
                     <div class="col-md-6 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
-                        <select class="form-control select" (change)="jobSeeker.workAreas[i].cityName=workAreaCity.cityName" [(ngModel)]="jobSeeker.workAreas[i].cityId">
+                        <select class="form-control select"  [(ngModel)]="jobSeeker.workAreas[i].cityId">
                           <option *ngFor="let workAreaCity of workAreasDetails;" (change)="addJobSeeker();" [value]="workAreaCity.cityId">{{workAreaCity.cityName}}</option>
                         </select>
                       </div>
@@ -178,8 +176,8 @@
                       <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
                         <!-- <input type="text" class="form-control" [(ngModel)]="jobSeeker.area" /> -->
-                        <select class="form-control select" (change)="jobSeeker.workAreas[i].areaName=CityWorkArea.areaName" [(ngModel)]="jobSeeker.workAreas[i].areaId">
-                          <option *ngFor="let CityWorkArea of workAreasDetails | filterby : jobSeeker.workAreas[i].cityId;" [value]="CityWorkArea.areaId">{{CityWorkArea.areaName}}</option>
+                        <select class="form-control select"  [(ngModel)]="jobSeeker.workAreas[i].areaId">
+                          <option *ngFor="let CityWorkArea of workAreasDetails | filterby : 'workAreas' : jobSeeker.workAreas[i].cityId;" [value]="CityWorkArea.areaId">{{CityWorkArea.areaName}}</option>
                         </select>
                       </div>
                     </div>
@@ -202,181 +200,18 @@
                     <div class="col-md-6 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                        <ng-multiselect-dropdown [placeholder]="'Multi select'"  [data]="dropdownList" [(ngModel)]="selectedItems"
-                          [settings]="MultSelect" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                        <ng-multiselect-dropdown [placeholder]="'Multi select'"  [data]="skillsDetails" [(ngModel)]="selectedSkills"
+                          [settings]="MultSelect">
                         </ng-multiselect-dropdown>
                       </div>
                     </div>
                 </div>
-                <div class="panel-footer"> 
-                  <button class="btn btn-primary pull-right" (click)="addJobSeeker()">Submit</button>
+                <div> 
+                  <button class="btn btn-primary pull-right" (click)="addJobSeeker()">Next</button>
                </div>
               </div>
             </div>
 
-
-
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" href="#CommonSkills">
-                    Common Skills
-                  </a>
-                </h4>
-              </div>
-              <div class="panel-body collapse" id="CommonSkills">
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">Experiance</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                      <select class="form-control select" [(ngModel)]="jobSeeker.experiance">
-                        <option selected value=null>Select Experiance</option>
-                        <option value="Fresher">Fresher</option>
-                        <option value="Less than 1 Year">Less than 1 Year</option>
-                        <option value="1-3 Years">1-3 Years</option>
-                        <option value="3-5 Years">3-5 Years</option>
-                        <option value="More than 5 Years">More than 5 Years</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">I have Done Training</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="isTrainingDone" value="Yes" [(ngModel)]="jobSeeker.isTrainingDone"
-                            checked />
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="isTrainingDone" value="No" [(ngModel)]="jobSeeker.isTrainingDone" />
-                          No
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">I Know Languages</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                      <select class="form-control select" [(ngModel)]="jobSeeker.languages">
-                        <option selected value=null>Select Languages</option>
-                        <option value="Marathi">Marathi</option>
-                        <option value="Hindi">Hindi</option>
-                        <option value="English">English</option>
-                        <option value="Gujarati">Gujarati</option>
-                        <option value="Bengali">Bengali</option>
-                        <option value="Tamil">Tamil</option>
-                        <option value="Punjabi">Punjabi</option>
-                        <option value="Telgu">Telgu</option>
-                        <option value="Kannada">Kannada</option>
-                        <option value="Malyalam">Malyalam</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">Education</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                      <select class="form-control select" [(ngModel)]="jobSeeker.education">
-                        <option selected value=null>Select Languages</option>
-                        <option value="NoSchooling">NoSchooling</option>
-                        <option value="1-5Class">1-5Class</option>
-                        <option value="6-9Class">6-9Class</option>
-                        <option value="10Class">10Class</option>
-                        <option value="11-12Class">11-12Class</option>
-                        <option value="FirstYear">FirstYear</option>
-                        <option value="SecondYear">SecondYear</option>
-                        <option value="ThirdYear">ThirdYear</option>
-                        <option value="PostGraduate">PostGraduate</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">I Know Driving</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="isKnowDriving" value="Yes" checked />
-                          Yes
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="isKnowDriving" value="No" />
-                          No
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">I Need Work For</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                      <select class="form-control select" [(ngModel)]="jobSeeker.iNeedWorkFor">
-                        <option selected value=null>Select Languages</option>
-                        <option value="PartTime(1-4Hrs)">PartTime(1-4Hrs)</option>
-                        <option value="FullTime(5-12Hrs)">FullTime(5-12Hrs)</option>
-                        <option value="LiveIn(24hrs)">LiveIn(24hrs)</option>
-                        <option value="NightShift(2-12Hrs)">NightShift(2-12Hrs)</option>
-                        <option value="OnDemmand(weekend)">OnDemmand(weekend)</option>
-                        <option value="OnDemmand(weekday)">OnDemmand(weekday)</option>
-                        <option value="OutstationTravel">OutstationTravel</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">Documents</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                      <select class="form-control select" [(ngModel)]="jobSeeker.documents">
-                        <option selected value=null>Select Languages</option>
-                        <option value="AdhaarCard">Adhaar Card</option>
-                        <option value="NC">NC(NonCriminal Certificate)</option>
-                        <option value="Photo">Photo</option>
-                        <option value="Ration Card">Ration Card</option>
-                        <option value="Passport">Passport</option>
-                        <option value="Driving Licence">Driving Licence</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row form-group">
-                  <label class="col-md-3 col-xs-12 control-label">Expected Salary</label>
-                  <div class="col-md-6 col-xs-12">
-                    <div class="input-group">
-                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                      <input type="text" class="form-control" [(ngModel)]="jobSeeker.ExpectedSalary" />
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
             <div class="panel panel-warning">
               <div class="panel-heading">
                 <h4 class="panel-title">
@@ -387,6 +222,27 @@
               </div>
               <div class="panel-body collapse" id="Skills">
 
+                  <div class="row form-group" *ngFor="let skill of skillsDetails | filterby : 'skillsDetails' : selectedSkills; let i = index">
+                      <label class="col-md-3 col-xs-12 control-label">{{skill.categoryName}} </label>
+                      <div class="col-md-6 col-xs-12">
+                        <div class="input-group">
+                          <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                          <!-- <select class="form-control select" >
+                            <option *ngFor="let subCategories of skill.subCategories">{{subCategories.subCategoryName}}</option>
+                          </select> -->
+                          <ng-multiselect-dropdown [placeholder]="'Multi select'"  [data]="skill.subCategories" [(ngModel)]="jobSeekerselectedSkills[i]"
+                          [settings]="SkillDetailMultSelect">
+                        </ng-multiselect-dropdown>
+                        <!-- <span class="input-group-addon" [(ngModel)]="jobSeekerselectedSkills[i].categoryId" [textContent]="skill.categoryId"></span> -->
+                         
+                        </div>
+                      </div>
+                    </div>
+
+                    <div> 
+                      <button class="btn btn-primary pull-right" (click)="addJobSeekerSkill()">Next</button>
+                   </div>
+<!-- 
                 <div class="row form-group">
                   <label class="col-md-3 col-xs-12 control-label">As Maid I Can Do </label>
                   <div class="col-md-6 col-xs-12">
@@ -641,10 +497,194 @@
                                 </select>
                               </div>
                             </div>
-                        </div>
+                        </div> -->
 
               </div>
             </div>
+
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#CommonSkills">
+                    Common Skills
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-body collapse" id="CommonSkills">
+
+
+                <div class="row form-group" *ngFor="let skill of CommonSkills; let i = index">
+                  <label class="col-md-3 col-xs-12 control-label">{{skill.categoryName}} </label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                      <!-- <select class="form-control select" >
+                        <option *ngFor="let subCategories of skill.subCategories">{{subCategories.subCategoryName}}</option>
+                      </select> -->
+                      <ng-multiselect-dropdown [placeholder]="'Multi select'"  [data]="skill.subCategories" [(ngModel)]="jobSeekerselectedCommonSkills[i]"
+                      [settings]="SkillDetailMultSelect">
+                    </ng-multiselect-dropdown>
+                    <!-- <span class="input-group-addon" [(ngModel)]="jobSeekerselectedSkills[i].categoryId" [textContent]="skill.categoryId"></span> -->
+                     
+                    </div>
+                  </div>
+                </div>
+                
+                <div> 
+                  <button class="btn btn-primary pull-right" (click)="addJobJobSeekerCommanSkils()">Submit</button>
+               </div>
+                <!-- <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">Experiance</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                      <select class="form-control select" [(ngModel)]="jobSeeker.experiance">
+                        <option selected value=null>Select Experiance</option>
+                        <option value="Fresher">Fresher</option>
+                        <option value="Less than 1 Year">Less than 1 Year</option>
+                        <option value="1-3 Years">1-3 Years</option>
+                        <option value="3-5 Years">3-5 Years</option>
+                        <option value="More than 5 Years">More than 5 Years</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">I have Done Training</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="isTrainingDone" value="Yes" [(ngModel)]="jobSeeker.isTrainingDone"
+                            checked />
+                          Yes
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="isTrainingDone" value="No" [(ngModel)]="jobSeeker.isTrainingDone" />
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">I Know Languages</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                      <select class="form-control select" [(ngModel)]="jobSeeker.languages">
+                        <option selected value=null>Select Languages</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="English">English</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Bengali">Bengali</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Punjabi">Punjabi</option>
+                        <option value="Telgu">Telgu</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Malyalam">Malyalam</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">Education</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                      <select class="form-control select" [(ngModel)]="jobSeeker.education">
+                        <option selected value=null>Select Languages</option>
+                        <option value="NoSchooling">NoSchooling</option>
+                        <option value="1-5Class">1-5Class</option>
+                        <option value="6-9Class">6-9Class</option>
+                        <option value="10Class">10Class</option>
+                        <option value="11-12Class">11-12Class</option>
+                        <option value="FirstYear">FirstYear</option>
+                        <option value="SecondYear">SecondYear</option>
+                        <option value="ThirdYear">ThirdYear</option>
+                        <option value="PostGraduate">PostGraduate</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">I Know Driving</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="isKnowDriving" value="Yes" checked />
+                          Yes
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="isKnowDriving" value="No" />
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">I Need Work For</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                      <select class="form-control select" [(ngModel)]="jobSeeker.iNeedWorkFor">
+                        <option selected value=null>Select Languages</option>
+                        <option value="PartTime(1-4Hrs)">PartTime(1-4Hrs)</option>
+                        <option value="FullTime(5-12Hrs)">FullTime(5-12Hrs)</option>
+                        <option value="LiveIn(24hrs)">LiveIn(24hrs)</option>
+                        <option value="NightShift(2-12Hrs)">NightShift(2-12Hrs)</option>
+                        <option value="OnDemmand(weekend)">OnDemmand(weekend)</option>
+                        <option value="OnDemmand(weekday)">OnDemmand(weekday)</option>
+                        <option value="OutstationTravel">OutstationTravel</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">Documents</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                      <select class="form-control select" [(ngModel)]="jobSeeker.documents">
+                        <option selected value=null>Select Languages</option>
+                        <option value="AdhaarCard">Adhaar Card</option>
+                        <option value="NC">NC(NonCriminal Certificate)</option>
+                        <option value="Photo">Photo</option>
+                        <option value="Ration Card">Ration Card</option>
+                        <option value="Passport">Passport</option>
+                        <option value="Driving Licence">Driving Licence</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-md-3 col-xs-12 control-label">Expected Salary</label>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                      <input type="text" class="form-control" [(ngModel)]="jobSeeker.ExpectedSalary" />
+                    </div>
+                  </div>
+                </div> -->
+
+              </div>
+            </div>
+            
           </div>
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ActivatedRoute,Router } from "@angular/router";
 import { AppService } from '../app.service';
 import { Category } from './category';
 import { from } from 'rxjs';
@@ -11,7 +12,9 @@ declare var $ :any;
 })
 export class CategoryComponent implements OnInit {
   
-  constructor( private AppService: AppService) { }
+  constructor( private AppService: AppService, private router: Router, private route: ActivatedRoute) {
+    this.AppService.setCurrentPage((this.router.url).split('/')[1]);
+   }
 
   category : any = {};
   categories : any = []; 
@@ -53,7 +56,7 @@ export class CategoryComponent implements OnInit {
   
   editCategory(category:any): void{
     this.category = Object.assign({},category);
-    $("#add-Category").modal("show");
+   // $("#add-Category").modal("show");
   };
 
   deleteCategory(categoryId:any){
@@ -93,7 +96,7 @@ export class CategoryComponent implements OnInit {
 
   editSubCategory(sub_Category:any): void{
     this.sub_Category = Object.assign({},sub_Category);
-    $("#add-SubCategory").modal("show");
+    //$("#add-SubCategory").modal("show");
   };
 
   deleteSubCategory(subCategoryId:any){

@@ -35,16 +35,16 @@
                         </div>                                                                        
                     </li>
                     <li class="xn-title">Navigation</li>
-                    <li class="active">
+                    <li [ngClass]="{'active': currentPage=='dashboard'}">
                         <a routerLink="/dashboard"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>                        
                     </li>                    
-                    <li class="">
+                    <li [ngClass]="{'active': currentPage=='category'}">
                         <a routerLink="/category"><span class="fa fa-files-o"></span> <span class="xn-text">Category</span></a>
                     </li>                  
-                    <li class="">
+                    <li [ngClass]="{'active': currentPage=='jobSeeker'}">
                         <a routerLink="/jobSeeker"><span class="fa fa-user"></span> <span class="xn-text">Job-Seeker</span></a>
                     </li>           
-                    <li class="">
+                    <li [ngClass]="{'active': currentPage=='employer'}">
                         <a routerLink="/employer"><span class="fa fa-user"></span> <span class="xn-text">Employer</span></a>
                     </li>
                 </ul>

@@ -50,7 +50,7 @@
                                                             <td>{{categoryObj.categoryName}}</td>
                                                             <td>{{categoryObj.description}}</td>
                                                             <td>{{categoryObj.status}}</td>
-                                                            <th><i class="fa fa-edit" title="Edit" (click)="editCategory(categoryObj);"> </i>&nbsp; &nbsp;
+                                                            <th><i class="fa fa-edit" title="Edit" data-toggle="modal" data-target="#add-Category" (click)="editCategory(categoryObj);"> </i>&nbsp; &nbsp;
                                                                 <i class="fa fa-trash-o" title="Delete" (click)="deleteCategory(categoryObj.categoryId)"></i></th>
                                                         </tr>
                                                     </tbody>
@@ -102,7 +102,7 @@
                                                             <td>{{sub_Category.subCategoryName}}</td>
                                                             <td>{{sub_Category.description}}</td>
                                                             <td>{{sub_Category.status}}</td>
-                                                            <th><i class="fa fa-edit" (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp;
+                                                            <th><i class="fa fa-edit" data-toggle="modal" data-target="#add-SubCategory"  (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp;
                                                                  <i class="fa fa-trash-o" title="Delete" (click)="deleteSubCategory(sub_Category.subCategoryId);"></i></th>
                                                         </tr>
                                                     </tbody>
@@ -155,6 +155,25 @@
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
                                 <textarea class="form-control" [(ngModel)]="category.description"></textarea>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Is Main Category</label>
+                        <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="type" [value]=1 [(ngModel)]="category.type"/>
+                                Yes
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="type" [value]=0 [(ngModel)]="category.type" />
+                                No
+                              </label>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>

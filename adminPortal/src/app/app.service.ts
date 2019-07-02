@@ -14,8 +14,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AppService {
-
+  
   public subject = new Subject<any>();
+  public currentPage = new Subject<any>();
 
   constructor(private router: Router, private http: HttpClient) {
     if (!sessionStorage.getItem('dataSource') || sessionStorage.getItem('dataSource') == 'false') {
@@ -29,6 +30,10 @@ export class AppService {
     console.log(data); // I have data! Let's return it so subscribers can use it!
     // we can do stuff with data if we want
     this.subject.next(data);
+  }
+
+  setCurrentPage(page:string) {
+    this.currentPage.next(page);
   }
 
   getCategory(): Observable<Category> {
@@ -64,14 +69,41 @@ export class AppService {
     return this.http.delete<any>(AppConstants.subCategory, SubcategoryId);
   }
 
+  getJobSeekersList():Observable<any>{
+    return this.http.get(AppConstants.getJobSeekers)
+  }
   getCities(): Observable<any> {
     return this.http.get(AppConstants.cities);
+  };
+
+  addJobSeeker(JobSeekerObj:any): Observable<any> {
+    return this.http.post<any>(AppConstants.addJobseeker, JobSeekerObj);
   }
+  
 
   getSkills(): Observable<any> {
     return this.http.get(AppConstants.skills);
   }
 
+  getCommonSkills(): Observable<any> {
+    return this.http.get(AppConstants.commonSkills);
+  }
+
+  getJobSeekerSkill(id){
+    const url = `${AppConstants.getJobSeekerSkills}/${id}`;
+    return this.http.get(url);
+  }
+
+  addJobSeekerSkill(id:any,obj:any){
+    const url = `${AppConstants.getJobSeekerSkills}/${id}`;
+    return this.http.post(url,obj);
+  }
+
+  
+  addJobSeekerCommanSkill(id:any,obj:any){
+    const url = `${AppConstants.commonSkills}/${id}`;
+    return this.http.post(url,obj);
+  }
 
 
 }

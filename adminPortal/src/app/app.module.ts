@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -30,6 +31,7 @@ import { FilterbyPipe } from './filterby.pipe';
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    NgxSpinnerModule,
     NgMultiSelectDropDownModule.forRoot(),
     PdfViewerModule
   ],

@@ -31,17 +31,6 @@ export class FilterbyPipe implements PipeTransform {
 
     }
 
-    if(filtertype=='CategoryWithSubCategory'){
-      if (!array) {
-        return null;
-      };
-
-      return array.filter(item => (item.subCategories.length));
-
-    }
-
-
-
   }
 
 }

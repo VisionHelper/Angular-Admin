@@ -10,7 +10,7 @@
           <h3 class="panel-title">Default</h3>
           <ul class="panel-controls">
             <li><a class="panel-collapse cursorPointer"><span class="fa fa-angle-down"></span></a></li>
-            <li><a class="panel-refresh cursorPointer"><span class="fa fa-refresh"></span></a></li>
+            <li><a class="panel-refresh cursorPointer" (click)="getEmployers();"><span class="fa fa-refresh"></span></a></li>
             <li><a class="cursorPointer" title="Add" (click)="pageSection='add'; employer={}"><span class="fa fa-plus-square"></span></a></li>
           </ul>
         </div>
@@ -18,33 +18,29 @@
           <table class="table datatable">
             <thead>
               <tr>
+                <th>Sr No</th>
                 <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Contact No</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-              </tr>
-              <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011/07/25</td>
-                <td>$170,750</td>
+              <tr *ngFor="let employer of employerList | paginate: { id: 'employerPagination',
+                itemsPerPage: 10, currentPage: pageNo, totalItems: employerList.length }; let i = index">
+                <td>{{(pageNo*10-10)+(i+1)}}</td>
+                <td>{{employer.name}}</td>
+                <td>{{employer.mobileNum}}</td>
+                <td>{{employer.email}}</td>
+                <td>{{employer.area}} {{employer.city}}</td>
+                <th><i class="fa fa-edit" (click)="editEmployer(employer);" title="Edit"> </i>&nbsp; &nbsp;
+                <i class="fa fa-trash-o" title="Delete" (click)="deleteEmployer(employer.employerId);"></i></th>
               </tr>
             </tbody>
           </table>
+          <pagination-controls id="employerPagination" (pageChange)="pageNo = $event">
+            </pagination-controls>
         </div>
       </div>
       <!-- END DEFAULT DATATABLE -->
@@ -54,8 +50,6 @@
 
   <div class="row" *ngIf="pageSection=='add'">
     <div class="col-md-12">
-
-      <form class="form-horizontal">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><strong>Add Employer</strong></h3>
@@ -65,84 +59,99 @@
           </div>
           <div class="panel-body">
 
-            <div class="form-group">
+            <div class="row form-group">
               <label class="col-md-3 col-xs-12 control-label">Name</label>
               <div class="col-md-6 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" [(ngModel)]="employer.name"/>
                 </div>
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="row form-group">
+                <label class="col-md-3 col-xs-12 control-label">Contact No</label>
+                <div class="col-md-6 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="employer.mobileNum" />
+                  </div>
+                </div>
+              </div>
+
+            <div class="row form-group">
               <label class="col-md-3 col-xs-12 control-label">Email</label>
               <div class="col-md-6 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" [(ngModel)]="employer.email" />
                 </div>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="col-md-3 col-xs-12 control-label">Contact No</label>
-              <div class="col-md-6 col-xs-12">
-                <div class="input-group">
-                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                  <input type="text" class="form-control" />
+            
+            <div class="row form-group">
+                <label class="col-md-3 col-xs-12 control-label">Area</label>
+                <div class="col-md-6 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="employer.area" />
+                  </div>
                 </div>
-              </div>
             </div>
 
-            <div class="form-group">
-              <label class="col-md-3 col-xs-12 control-label">Referal Code</label>
-              <div class="col-md-6 col-xs-12">
-                <div class="input-group">
-                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                  <input type="text" class="form-control" />
+            <div class="row form-group">
+                <label class="col-md-3 col-xs-12 control-label">City</label>
+                <div class="col-md-6 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="employer.city" />
+                  </div>
                 </div>
-              </div>
-            </div>
+          </div>
 
-            <div class="form-group">
-              <label class="col-md-3 col-xs-12 control-label">City</label>
+          <div class="row form-group">
+              <label class="col-md-3 col-xs-12 control-label">Gender</label>
               <div class="col-md-6 col-xs-12">
                 <div class="input-group">
-                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                  <input type="text" class="form-control" />
+                  <span class="input-group-addon"><span class="fa fa-users"></span></span>
+                  <select class="form-control select" [(ngModel)]="employer.gender">
+                    <option selected disabled>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
                 </div>
               </div>
-            </div>
+          </div>
+       
+          <div class="row form-group">
+              <label class="col-md-3 col-xs-12 control-label">Date Of Birth</label>
+              <div class="col-md-6 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                  <input type="date" class="form-control" [(ngModel)]="employer.birthDate" />
+                </div>
+              </div>
+          </div>
 
-            <div class="form-group">
-              <label class="col-md-3 col-xs-12 control-label">Area</label>
-              <div class="col-md-6 col-xs-12">
-                <div class="input-group">
-                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                  <input type="text" class="form-control" />
-                </div>
+            
+          <div class="row form-group">
+            <label class="col-md-3 col-xs-12 control-label">Preferred Location Length</label>
+            <div class="col-md-6 col-xs-12">
+              <div class="input-group">
+                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                <input type="text" class="form-control" [(ngModel)]="jobSeeker.preferredLocLength"/>
               </div>
             </div>
-
-            <div class="form-group">
-              <label class="col-md-3 col-xs-12 control-label">Preferred Location Length</label>
-              <div class="col-md-6 col-xs-12">
-                <div class="input-group">
-                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                  <input type="text" class="form-control" />
-                </div>
-              </div>
-            </div>
+          </div>
 
 
           </div>
           <div class="panel-footer">
-            <button class="btn btn-default">Clear Form</button>
-            <button class="btn btn-primary pull-right">Submit</button>
+            <button class="btn btn-default" (click)="jobSeeker={}">Clear Form</button>
+            <button class="btn btn-primary pull-right" (click)="addEmployer()">Submit</button>
           </div>
         </div>
-      </form>
 
     </div>
   </div>

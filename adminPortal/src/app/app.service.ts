@@ -50,7 +50,8 @@ export class AppService {
   }
 
   deleteCategory(categoryId: any) {
-    return this.http.delete<any>(AppConstants.category, categoryId);
+    const url = `${AppConstants.category}/${categoryId}`;
+    return this.http.delete<any>(url);
   }
 
   getSubCategory(): Observable<any> {
@@ -66,11 +67,12 @@ export class AppService {
   }
 
   deleteSubCategory(SubcategoryId:any) : Observable<any>{
-    return this.http.delete<any>(AppConstants.subCategory, SubcategoryId);
+    const url = `${AppConstants.subCategory}/${SubcategoryId}`;
+    return this.http.delete<any>(url);
   }
 
   getJobSeekersList():Observable<any>{
-    return this.http.get(AppConstants.getJobSeekers)
+    return this.http.get(AppConstants.JobSeekers)
   }
   getCities(): Observable<any> {
     return this.http.get(AppConstants.cities);
@@ -89,7 +91,7 @@ export class AppService {
     return this.http.get(AppConstants.commonSkills);
   }
 
-  getJobSeekerSkill(id){
+  getJobSeekerSkill(id) :Observable<any>{
     const url = `${AppConstants.getJobSeekerSkills}/${id}`;
     return this.http.get(url);
   }
@@ -105,5 +107,31 @@ export class AppService {
     return this.http.post(url,obj);
   }
 
+  getJobSeekerCommanSkill(id) :Observable<any>{
+    const url = `${AppConstants.commonSkills}/${id}`;
+    return this.http.get(url);
+  }
+
+  deleteJobSeeker(JobSeekerId:any) : Observable<any>{
+    const url = `${AppConstants.JobSeekers}/${JobSeekerId}`;
+    return this.http.delete<any>(url);
+  }
+
+  getEmployers():Observable<any>{
+    return this.http.get(AppConstants.employer)
+  }
+
+  addEmployer(obj:any):Observable<any>{
+    return this.http.post(AppConstants.addEmployerProfileByAdmin,obj)
+  }
+
+  editEmployer(obj:any):Observable<any>{
+    return this.http.post(AppConstants.employer,obj)
+  }
+
+  deleteEmployer(employerId:any) : Observable<any>{
+    const url = `${AppConstants.employer}/${employerId}`;
+    return this.http.delete<any>(url);
+  }
 
 }

@@ -29,18 +29,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let jobSeeker of jobSeekersList; let i = index">
-                <td>{{i+1}}</td>
+              <tr *ngFor="let jobSeeker of jobSeekersList | paginate: { id: 'jobSeekerPagination',
+              itemsPerPage: 10, currentPage: pageNo, totalItems: jobSeekersList.length }; let i = index">
+                <td>{{(pageNo*10-10)+(i+1)}}</td>
                 <td>{{jobSeeker.name}}</td>
                 <td>{{jobSeeker.email}}</td>
                 <td>{{jobSeeker.mobileNum}}</td>
                 <td>{{jobSeeker.city}}</td>
                 <td>{{jobSeeker.area}}</td>
                 <th><i class="fa fa-edit cursorPointer" (click)="editJobSeeker(jobSeeker);" title="Edit"> </i>&nbsp;
-                  &nbsp; <i class="fa fa-trash-o cursorPointer" title="Delete"></i></th>
+                  &nbsp; <i class="fa fa-trash-o cursorPointer" (click)="deleteJobSeeker(jobSeeker.jobseekerId)" title="Delete"></i></th>
               </tr>
             </tbody>
           </table>
+          <pagination-controls id="jobSeekerPagination" (pageChange)="pageNo = $event">
+          </pagination-controls>
         </div>
       </div>
       <!-- END DEFAULT DATATABLE -->
@@ -200,7 +203,7 @@
                     <div class="col-md-6 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                        <ng-multiselect-dropdown [placeholder]="'Multi select'"  [data]="skillsDetails" [(ngModel)]="selectedSkills"
+                        <ng-multiselect-dropdown [placeholder]="'Multi select'"   (onSelect)="onItemSelect($event)" [data]="skillsDetails" [(ngModel)]="selectedSkills"
                           [settings]="MultSelect">
                         </ng-multiselect-dropdown>
                       </div>

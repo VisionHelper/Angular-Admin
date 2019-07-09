@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,9 +36,12 @@ import { FilterbyPipe } from './filterby.pipe';
     NgxPaginationModule,
     NgxSpinnerModule,
     NgMultiSelectDropDownModule.forRoot(),
-    PdfViewerModule
+    PdfViewerModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
+
   ],
-  providers: [],
+  providers: [FilterbyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

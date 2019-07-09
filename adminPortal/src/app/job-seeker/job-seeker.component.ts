@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from "@angular/router";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AppService } from '../app.service';
+import { FilterbyPipe } from '../filterby.pipe';
 import { element } from 'protractor';
 
 declare var $ :any;
@@ -16,8 +17,9 @@ export class JobSeekerComponent implements OnInit {
   pageSection : string;
   jobSeeker: any = {};
   jobSeekers = []
+  pageNo = 1;
   constructor(private AppService :AppService, private router: Router, private route: ActivatedRoute,
-      private spinner: NgxSpinnerService) {
+      private spinner: NgxSpinnerService,private FilterbyPipe: FilterbyPipe) {
     this.AppService.setCurrentPage((this.router.url).split('/')[1]);
    }
   
@@ -41,36 +43,19 @@ export class JobSeekerComponent implements OnInit {
     this.getCommonSkills();
     this.pageSection = 'list';
     this.jobSeeker.workAreas = [];
-    this.jobSeeker.workAreas.push({
-      "areaId": null,
-      "areaName": null,
-      "cityId": null,
-      "cityName": null
-    });
+    this.jobSeeker.workAreas.push({"areaId": null,"areaName": null,"cityId": null, "cityName": null});
 
 
-    this.MultSelect = {
-      singleSelection: false,
-      idField: 'categoryId',
-      textField: 'categoryName',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 5,
-      allowSearchFilter: true
-    };
+    this.MultSelect = { singleSelection: false, idField: 'categoryId', textField: 'categoryName', selectAllText: 'Select All',unSelectAllText: 'UnSelect All', itemsShowLimit: 5, allowSearchFilter: true};
 
-    this.SkillDetailMultSelect = {
-      singleSelection: false,
-      idField: 'subCategoryId',
-      textField: 'subCategoryName',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 5,
-      allowSearchFilter: true
-    };
+    this.SkillDetailMultSelect = {singleSelection: false, idField: 'subCategoryId', textField: 'subCategoryName', selectAllText: 'Select All',unSelectAllText: 'UnSelect All', itemsShowLimit: 5, allowSearchFilter: true};
 
   };
   
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+
   getJobSeekersList(){
     this.AppService.getJobSeekersList().subscribe(data =>{
       if(data.success){
@@ -91,7 +76,7 @@ export class JobSeekerComponent implements OnInit {
   getSkills(){
     this.AppService.getSkills().subscribe(data =>{
       if(data.success){
-        this.skillsDetails = data.data;
+        this.skillsDetails = data.data.filter(item => (item.subCategories.length));
       }
     })
   };
@@ -132,10 +117,10 @@ export class JobSeekerComponent implements OnInit {
       });
     });
     if(obj.length>0){
-      this.AppService.addJobSeekerSkill(this.jobSeeker,obj).subscribe(data =>{
-        if(data.success){
+      this.AppService.addJobSeekerSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
+        // if(data.success){
 
-        }
+        // }
       })
     }
   };
@@ -144,9 +129,12 @@ export class JobSeekerComponent implements OnInit {
     this.AppService.getJobSeekerSkill(this.jobSeeker.jobseekerId).subscribe(data =>{
       if(data.success){
         this.selectedSkills = data.data;
+        this.jobSeekerselectedSkills = [];
+        let jobSeekerSkillsArray = this.FilterbyPipe.transform(this.skillsDetails, 'skillsDetails', this.selectedSkills)
         this.selectedSkills.forEach(element => {
-          if(element.subCategories){
-            this.jobSeekerselectedSkills.push(element.subCategories)
+          if(element.subCategories.length){
+            let index = jobSeekerSkillsArray.findIndex(item => item.categoryId === element.categoryId);
+            this.jobSeekerselectedSkills[index]= element.subCategories;
           }
         });
       }
@@ -169,19 +157,21 @@ export class JobSeekerComponent implements OnInit {
     });
     if(obj.length>0){
       this.AppService.addJobSeekerCommanSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
-        if(data.success){
+        // if(data.success){
 
-        }
+        // }
       })
     }
   };
 
   getJobSeekerCommanSkill(id:any){
-    this.AppService.getJobSeekerSkill(id).subscribe(data =>{
+    this.AppService.getJobSeekerCommanSkill(id).subscribe(data =>{
       if(data.success){
-       this.CommonSkills.forEach(element => {
-          if(element.subCategories){
-            this.jobSeekerselectedCommonSkills.push(element.subCategories)
+        this.jobSeekerselectedCommonSkills = [];
+        data.data.forEach(element => {
+          if(element.subCategories.length){
+            let index = this.CommonSkills.findIndex( item => item.categoryId === element.categoryId);
+            this.jobSeekerselectedCommonSkills[index]= element.subCategories;
           }
         });
       }
@@ -195,13 +185,18 @@ export class JobSeekerComponent implements OnInit {
     this.pageSection = 'add';
   };
 
+
+  deleteJobSeeker(JobSeekerId){
+    let isDelete = confirm("Are you sure you want to delete Category");
+    if(isDelete==true){
+      this.AppService.deleteEmployer(JobSeekerId).subscribe(data => {
+        this.getJobSeekersList();
+      });
+    }
+  };
+
   AddWorkAreas():void{
-    this.jobSeeker.workAreas.push({
-      "areaId": null,
-      "areaName": null,
-      "cityId": null,
-      "cityName": null
-    })
+    this.jobSeeker.workAreas.push({ "areaId": null, "areaName": null, "cityId": null, "cityName": null})
   };
 
   removeCityArea(index:number):void{

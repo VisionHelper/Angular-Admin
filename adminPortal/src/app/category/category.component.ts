@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute,Router } from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
 import { Category } from './category';
 import { from } from 'rxjs';
@@ -12,7 +13,7 @@ declare var $ :any;
 })
 export class CategoryComponent implements OnInit {
   
-  constructor( private AppService: AppService, private router: Router, private route: ActivatedRoute) {
+  constructor( private AppService: AppService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService) {
     this.AppService.setCurrentPage((this.router.url).split('/')[1]);
    }
 
@@ -29,7 +30,6 @@ export class CategoryComponent implements OnInit {
   
   getCategory(){
     this.AppService.getCategory().subscribe(data => {
-      console.log(data);
       this.categories = data;
     })
   }
@@ -40,15 +40,25 @@ export class CategoryComponent implements OnInit {
     this.category.status = "Active";
     if(!this.category.categoryId){
       this.AppService.addCategory(this.category).subscribe((data)=>{
-      $("#add-Category").modal("hide");
-      this.category = new Category;
-      this.getCategory();
+        if(data.success){
+          this.toastr.success('Category Added Successfully');
+          $("#add-Category").modal("hide");
+          this.category = new Category;
+          this.getCategory();
+        }else{
+          this.toastr.error('Error While Adding Category');
+        }
       });
     }else{
       this.AppService.editCategory(this.category).subscribe((data)=>{
-      $("#add-Category").modal("hide");
-      this.category = new Category;
-      this.getCategory();
+        if(data.success){
+          this.toastr.success('Category Updated Successfully');
+          $("#add-Category").modal("hide");
+          this.category = new Category;
+          this.getCategory();
+        }else{
+          this.toastr.error('Error While Updating Category');
+        }
       });
     }
   }
@@ -63,7 +73,12 @@ export class CategoryComponent implements OnInit {
     let isDelete = confirm("Are you sure you want to delete Category");
     if(isDelete==true){
       this.AppService.deleteCategory(categoryId).subscribe(data => {
-         this.getCategory();
+        if(data.success){
+          this.toastr.success('Category Deleted Successfully');
+          this.getCategory();
+        }else{
+          this.toastr.error('Error While Deleting Category');
+        }
       });
     }
   };
@@ -81,15 +96,26 @@ export class CategoryComponent implements OnInit {
     this.sub_Category.status = "Active";
     if(!this.sub_Category.subCategoryId){
       this.AppService.addSubCategory(this.sub_Category).subscribe((data)=>{
-        $("#add-SubCategory").modal("hide");
-      this.sub_Category = {};
-      this.getSubCategory();
+        if(data.success){
+          this.toastr.success('Sub-Category Added Successfully');
+          $("#add-SubCategory").modal("hide");
+          this.sub_Category = {};
+          this.getSubCategory();
+        }else{
+          this.toastr.error('Error While Adding Sub-Category');
+        }
+        
       });
     }else{
       this.AppService.editSubCategory(this.sub_Category).subscribe((data)=>{
-        $("#add-SubCategory").modal("hide");
-      this.sub_Category = {};
-      this.getSubCategory();
+        if(data.success){
+          this.toastr.success('Sub-Category Updated Successfully');
+          $("#add-SubCategory").modal("hide");
+          this.sub_Category = {};
+          this.getSubCategory();
+        }else{
+          this.toastr.error('Error While Updating Sub-Category');
+        }
       });
     }
   };
@@ -103,7 +129,12 @@ export class CategoryComponent implements OnInit {
     let isDelete = confirm("Are you sure you want to delete Sub Category");
     if(isDelete==true){
       this.AppService.deleteSubCategory(subCategoryId).subscribe(data => {
-         this.getSubCategory();
+        if(data.success){
+          this.toastr.success('Sub-Category Deleted Successfully');
+          this.getSubCategory();
+        }else{
+          this.toastr.error('Error While Deleting Sub-Category');
+        }
       });
     }
   };

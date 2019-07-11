@@ -22,9 +22,9 @@
                                             <div class="panel-heading">
                                                 <h3 class="panel-title">Category List</h3>
                                                 <ul class="panel-controls">
-                                                    <li><a href="#" class="panel-collapse"><span
+                                                    <li><a class="panel-collapse"><span
                                                                 class="fa fa-angle-down"></span></a></li>
-                                                    <li><a href="#" class="panel-refresh"><span
+                                                    <li><a class="panel-refresh" (click)="getCategory()"><span
                                                                 class="fa fa-refresh"></span></a></li>
                                                     <li><a data-toggle="modal" data-target="#add-Category" (click)="category={};"><span
                                                                 class="fa fa-plus-square"></span></a></li>
@@ -78,7 +78,7 @@
                                                 <ul class="panel-controls">
                                                     <li><a  class="panel-collapse cursorPointer"><span
                                                                 class="fa fa-angle-down"></span></a></li>
-                                                    <li><a class="panel-refresh cursorPointer"><span
+                                                    <li><a class="panel-refresh cursorPointer" (click)="getSubCategory()"><span
                                                                 class="fa fa-refresh"></span></a></li>
                                                     <li><a class="cursorPointer" data-toggle="modal" data-target="#add-SubCategory" (click)="sub_Category={};"><span
                                                                 class="fa fa-plus-square"></span></a></li>
@@ -232,7 +232,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" (click)="addSubCategory()">Submit</button>
+               
+                <button *ngIf="!(sub_Category.subCategoryId)" class="btn btn-primary" (click)="addSubCategory()">Submit</button>
+                <button *ngIf ="sub_Category.subCategoryId" class="btn btn-primary" (click)="addSubCategory()">Update</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

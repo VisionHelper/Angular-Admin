@@ -48,6 +48,8 @@ export class CategoryComponent implements OnInit {
         }else{
           this.toastr.error('Error While Adding Category');
         }
+      },(err)=>{
+        this.toastr.error('Error While Adding Category');
       });
     }else{
       this.AppService.editCategory(this.category).subscribe((data)=>{
@@ -58,7 +60,9 @@ export class CategoryComponent implements OnInit {
           this.getCategory();
         }else{
           this.toastr.error('Error While Updating Category');
-        }
+        } 
+      },(err)=>{
+          this.toastr.error('Error While Updating Category');
       });
     }
   }
@@ -79,6 +83,8 @@ export class CategoryComponent implements OnInit {
         }else{
           this.toastr.error('Error While Deleting Category');
         }
+      },(err)=>{
+        this.toastr.error('Error While Deleting Category');
       });
     }
   };
@@ -105,6 +111,8 @@ export class CategoryComponent implements OnInit {
           this.toastr.error('Error While Adding Sub-Category');
         }
         
+      },(err)=>{
+        this.toastr.error('Error While Adding Sub-Category');
       });
     }else{
       this.AppService.editSubCategory(this.sub_Category).subscribe((data)=>{
@@ -116,6 +124,8 @@ export class CategoryComponent implements OnInit {
         }else{
           this.toastr.error('Error While Updating Sub-Category');
         }
+      },(err)=>{
+        this.toastr.error('Error While Updating Sub-Category');
       });
     }
   };
@@ -135,6 +145,8 @@ export class CategoryComponent implements OnInit {
         }else{
           this.toastr.error('Error While Deleting Sub-Category');
         }
+      },(err)=>{
+        this.toastr.error('Error While Deleting Sub-Category');
       });
     }
   };

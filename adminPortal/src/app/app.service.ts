@@ -79,7 +79,11 @@ export class AppService {
   };
 
   addJobSeeker(JobSeekerObj:any): Observable<any> {
-    return this.http.post<any>(AppConstants.addJobseeker, JobSeekerObj);
+    if(!JobSeekerObj.jobseekerId){
+      return this.http.post<any>(AppConstants.addJobseekerByAdmin, JobSeekerObj);
+    }else{
+      return this.http.post<any>(AppConstants.Jobseeker, JobSeekerObj);
+    }
   }
   
 
@@ -132,6 +136,23 @@ export class AppService {
   deleteEmployer(employerId:any) : Observable<any>{
     const url = `${AppConstants.employer}/${employerId}`;
     return this.http.delete<any>(url);
+  }
+
+  getSubscriptionplanList():Observable<any>{
+    return this.http.get(AppConstants.subscriptionplan);
+  }
+
+  addSubscriptionPlan(Obj:any): Observable<any>{
+    return this.http.post(AppConstants.subscriptionplan,Obj);
+  }
+
+  editSubscriptionPlan(Obj:any): Observable<any>{
+    return this.http.put(AppConstants.subscriptionplan,Obj);
+  }
+
+  ChangeSubscriptionPlanStatus(id:any, status:any): Observable<any>{
+    const url = `${AppConstants.changeSubscriptionPlanStatus}/${id}`;
+    return this.http.get(url,status);
   }
 
 }

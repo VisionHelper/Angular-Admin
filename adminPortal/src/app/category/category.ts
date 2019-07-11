@@ -6,5 +6,6 @@ export class Category {
     deleted?: boolean;
     status?: string;
     updatedDate?: string;
+    success?: any;
 
 }

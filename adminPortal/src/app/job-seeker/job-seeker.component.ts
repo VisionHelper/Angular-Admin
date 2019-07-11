@@ -3,6 +3,7 @@ import { ActivatedRoute,Router } from "@angular/router";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AppService } from '../app.service';
 import { FilterbyPipe } from '../filterby.pipe';
+import { ToastrService } from 'ngx-toastr';
 import { element } from 'protractor';
 
 declare var $ :any;
@@ -19,7 +20,7 @@ export class JobSeekerComponent implements OnInit {
   jobSeekers = []
   pageNo = 1;
   constructor(private AppService :AppService, private router: Router, private route: ActivatedRoute,
-      private spinner: NgxSpinnerService,private FilterbyPipe: FilterbyPipe) {
+      private spinner: NgxSpinnerService,private FilterbyPipe: FilterbyPipe, private toastr: ToastrService) {
     this.AppService.setCurrentPage((this.router.url).split('/')[1]);
    }
   
@@ -91,18 +92,21 @@ export class JobSeekerComponent implements OnInit {
   };
 
 
-  addJobSeeker():void{
+  addJobSeeker(): void {
     console.log(this.jobSeeker);
     this.jobSeeker.isAdminVerified = true;
     this.jobSeeker.isAvailable = true;
-    this.AppService.addJobSeeker(this.jobSeeker).subscribe(data =>{
-      if(data.success){
-      this.jobSeeker.jobseekerId = data.data.jobseekerId;
-      this.getJobSeekerSkill(this.jobSeeker.jobseekerId);
-      this.getJobSeekerSkill(this.jobSeeker.jobseekerId);
-      $("Skills").show();
+    this.AppService.addJobSeeker(this.jobSeeker).subscribe(data => {
+      if (data.success) {
+        this.jobSeeker.jobseekerId = data.data.jobseekerId;
+        this.getJobSeekerSkill(this.jobSeeker.jobseekerId);
+        this.toastr.success("JobSeeker Added Successfully");
+      } else {
+        this.toastr.error('Error While Adding JobSeeker');
       }
-    })
+    }, (err) => {
+      this.toastr.error('Error While Adding JobSeeker');
+    });
   };
 
   addJobSeekerSkill(){
@@ -117,19 +121,23 @@ export class JobSeekerComponent implements OnInit {
       });
     });
     if(obj.length>0){
-      this.AppService.addJobSeekerSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
-        // if(data.success){
-
-        // }
-      })
+      this.AppService.addJobSeekerSkill(this.jobSeeker.jobseekerId,obj).subscribe((data) =>{
+         if(data.success){
+          this.toastr.success("JobSeekerSkill Added Successfully");
+        }else{
+          this.toastr.error("Error While Added JobSeekerSkill");
+        }
+      }, (err) => {
+        this.toastr.error('Error While Adding JobSeekerSkill');
+      });
     }
   };
 
   getJobSeekerSkill(id:any){
     this.AppService.getJobSeekerSkill(this.jobSeeker.jobseekerId).subscribe(data =>{
       if(data.success){
-        this.selectedSkills = data.data;
-        this.jobSeekerselectedSkills = [];
+        this.selectedSkills = data.data.length?data.data:this.selectedSkills;
+        this.jobSeekerselectedSkills = data.data.length?data.data:this.jobSeekerselectedSkills;
         let jobSeekerSkillsArray = this.FilterbyPipe.transform(this.skillsDetails, 'skillsDetails', this.selectedSkills)
         this.selectedSkills.forEach(element => {
           if(element.subCategories.length){
@@ -156,11 +164,15 @@ export class JobSeekerComponent implements OnInit {
         }
     });
     if(obj.length>0){
-      this.AppService.addJobSeekerCommanSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
-        // if(data.success){
-
-        // }
-      })
+      this.AppService.addJobSeekerCommanSkill(this.jobSeeker.jobseekerId,obj).subscribe((data) =>{
+         if(data.success){
+          this.toastr.success("JobSeekerCommanSkill Added Successfully");
+        }else{
+          this.toastr.error("Error While Added JobSeekerCommanSkill");
+        }
+      }, (err) => {
+        this.toastr.error('Error While Adding JobSeekerCommanSkill');
+      });
     }
   };
 
@@ -191,6 +203,9 @@ export class JobSeekerComponent implements OnInit {
     if(isDelete==true){
       this.AppService.deleteEmployer(JobSeekerId).subscribe(data => {
         this.getJobSeekersList();
+        this.toastr.success("JobSeeker Deleted Successfully");
+      }, (err) => {
+        this.toastr.error('Error While Deleted JobSeeker');
       });
     }
   };

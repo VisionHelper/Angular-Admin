@@ -10,7 +10,7 @@
           <h3 class="panel-title">Default</h3>
           <ul class="panel-controls">
             <li><a class="panel-collapse cursorPointer"><span class="fa fa-angle-down"></span></a></li>
-            <li><a class="panel-refresh cursorPointer"><span class="fa fa-refresh"></span></a></li>
+            <li><a class="panel-refresh cursorPointer" (click)="getJobSeekersList();"><span class="fa fa-refresh"></span></a></li>
             <li><a class="cursorPointer" title="Add" (click)="pageSection='add';"><span
                   class="fa fa-plus-square"></span></a></li>
           </ul>
@@ -58,7 +58,7 @@
         <div class="panel-heading">
           <h3 class="panel-title"><strong>Add Job-Seeker</strong></h3>
           <ul class="panel-controls">
-            <li><a class="cursorPointer" title="Close" (click)="pageSection='list'; jobSeeker={}"><span
+            <li><a class="cursorPointer" title="Close" (click)="pageSection='list'; getJobSeekersList(); jobSeeker={}"><span
                   class="fa fa-times"></span></a></li>
           </ul>
         </div>

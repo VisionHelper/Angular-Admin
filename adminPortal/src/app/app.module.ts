@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination'; 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-
+import {DatePipe} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -17,6 +17,7 @@ import { CategoryComponent } from './category/category.component';
 import { JobSeekerComponent } from './job-seeker/job-seeker.component';
 import { EmployerComponent } from './employer/employer.component';
 import { FilterbyPipe } from './filterby.pipe';
+import { SubscriptionplanComponent } from './subscriptionplan/subscriptionplan.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FilterbyPipe } from './filterby.pipe';
     CategoryComponent,
     JobSeekerComponent,
     EmployerComponent,
-    FilterbyPipe
+    FilterbyPipe,
+    SubscriptionplanComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ import { FilterbyPipe } from './filterby.pipe';
     ToastrModule.forRoot() // ToastrModule added
 
   ],
-  providers: [FilterbyPipe],
+  providers: [DatePipe,FilterbyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

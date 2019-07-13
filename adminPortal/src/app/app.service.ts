@@ -49,7 +49,7 @@ export class AppService {
     return this.http.put<Category>(AppConstants.category, categoryObj);
   }
 
-  deleteCategory(categoryId: any) {
+  deleteCategory(categoryId: any):Observable<any> {
     const url = `${AppConstants.category}/${categoryId}`;
     return this.http.delete<any>(url);
   }
@@ -100,13 +100,13 @@ export class AppService {
     return this.http.get(url);
   }
 
-  addJobSeekerSkill(id:any,obj:any){
+  addJobSeekerSkill(id:any,obj:any):Observable<any>{
     const url = `${AppConstants.getJobSeekerSkills}/${id}`;
     return this.http.post(url,obj);
   }
 
   
-  addJobSeekerCommanSkill(id:any,obj:any){
+  addJobSeekerCommanSkill(id:any,obj:any):Observable<any>{
     const url = `${AppConstants.commonSkills}/${id}`;
     return this.http.post(url,obj);
   }

@@ -25,12 +25,20 @@ export class FilterbyPipe implements PipeTransform {
       args.forEach(element => {
         skillIds.push(element.categoryId);
       });
-      console.log(skillIds);
-      console.log(array.filter(item => skillIds.indexOf(item.categoryId)<-1));
       return array.filter(item => (skillIds.indexOf(item.categoryId)>-1 && item.subCategories.length));
 
     }
 
+    if(filtertype=='employerFilter'){
+      if (!array || !args) {
+        return null;
+      };
+    
+    return array.filter(item => (((item.name && args.name)?item.name.trim().toLowerCase().includes(args.name.trim().toLowerCase()):false) || 
+          ((item.mobileNum && args.mobileNum)?item.mobileNum.toString().trim().includes(args.mobileNum.trim()):false) ||
+          ((item.city && args.city)?item.city.trim().toLowerCase().includes(args.city.trim().toLowerCase()):false)
+      ));
+    }
   }
 
 }

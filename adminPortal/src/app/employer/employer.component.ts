@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
+import { FilterbyPipe } from '../filterby.pipe';
 
 @Component({
   selector: 'app-employer',
@@ -14,7 +15,9 @@ export class EmployerComponent implements OnInit {
   pageNo = 1;
   employerList:any = [];
   employer:any = {};
-  constructor(private AppService: AppService,private router: Router, private route: ActivatedRoute, private toastr: ToastrService) {
+  OrignalemployerList: any;
+  constructor(private AppService: AppService,private router: Router, private route: ActivatedRoute,
+     private toastr: ToastrService,private FilterbyPipe: FilterbyPipe,) {
     this.AppService.setCurrentPage((this.router.url).split('/')[1]);
    }
 
@@ -24,9 +27,11 @@ export class EmployerComponent implements OnInit {
 
   getEmployers(){
     this.pageSection ='list';
+    this.filter = {}
     this.AppService.getEmployers().subscribe(data =>{
       if(data.success){
-        this.employerList = data.data;
+          this.OrignalemployerList = Object.assign([],data.data);
+          this.employerList = data.data;
       }
     });
   }
@@ -65,6 +70,15 @@ export class EmployerComponent implements OnInit {
       });
     }
   };
+
+filter:any = {};
+
+  filterEmployersLIst(){
+    if(this.filter != undefined){
+     this.employerList = this.FilterbyPipe.transform(this.OrignalemployerList, 'employerFilter', this.filter);
+     console.log(this.employerList);
+    }
+  }
 
  
 }

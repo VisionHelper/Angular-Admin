@@ -1,0 +1,122 @@
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="row" *ngIf="pageSection=='list'">
+      <div class="col-md-12">
+  
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Default</h3>
+            <ul class="panel-controls">
+              <li><a class="panel-collapse cursorPointer"><span class="fa fa-angle-down"></span></a></li>
+              <li><a class="panel-refresh cursorPointer" (click)="getSubscriptionplanList();"><span class="fa fa-refresh"></span></a></li>
+              <li><a class="cursorPointer" title="Add" (click)="pageSection='add'; subscriptionPlan={}"><span class="fa fa-plus-square"></span></a></li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>Sr No</th>
+                  <th>Name</th>
+                  <th>Amount</th>
+                  <th>Validity</th>
+                  <th>No of Leeds</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let subscriptionPlan of subscriptionPlanList | paginate: { id: 'subscriptionPlanPagination',
+                  itemsPerPage: 10, currentPage: pageNo, totalItems: subscriptionPlanList.length }; let i = index">
+                  <td>{{(pageNo*10-10)+(i+1)}}</td>
+                  <td>{{subscriptionPlan.name}}</td>
+                  <td>{{subscriptionPlan.amount}}</td>
+                  <td>{{subscriptionPlan.validityInDays}}</td>
+                  <td>{{subscriptionPlan.numOfLeads}}</td>
+                  <td><label class="switch">
+                        <input type="checkbox" class="switch" value="subscriptionPlan.status" [attr.checked]="subscriptionPlan.status === 'true' ? true : null"
+                        (click)="ChangeSubscriptionPlanStatus(subscriptionPlan.status)"  />
+                        <span></span>
+                    </label>
+                  </td>
+                  <th><i class="fa fa-edit" (click)="editSubscriptionplan(subscriptionPlan);"  title="Edit"> </i>&nbsp; &nbsp;
+                  <i class="fa fa-trash-o" title="Delete" (click)="deleteSubscriptionPlan(subscriptionPlan.subscriptionPlanId);"></i></th>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls id="subscriptionPlanPagination" (pageChange)="pageNo = $event">
+              </pagination-controls>
+          </div>
+        </div>
+        <!-- END DEFAULT DATATABLE -->
+  
+      </div>
+    </div>
+  
+    <div class="row" *ngIf="pageSection=='add'">
+      <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Add Employer</strong></h3>
+              <ul class="panel-controls">
+                <li><a class="cursorPointer" title="Close" (click)="pageSection='list'; subscriptionPlan={}"><span class="fa fa-times"></span></a></li>
+               </ul>
+            </div>
+            <div class="panel-body">
+  
+              <div class="row form-group">
+                <label class="col-md-3 col-xs-12 control-label">Name</label>
+                <div class="col-md-6 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="subscriptionPlan.name"/>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row form-group">
+                <label class="col-md-3 col-xs-12 control-label">Description</label>
+                <div class="col-md-6 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <textarea class="form-control" [(ngModel)]="subscriptionPlan.description"></textarea>
+                    </div>
+                </div>
+            </div>
+  
+              <div class="row form-group">
+                <label class="col-md-3 col-xs-12 control-label">amount</label>
+                <div class="col-md-6 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="subscriptionPlan.amount" />
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row form-group">
+                <label class="col-md-3 col-xs-12 control-label">validity In Days</label>
+                <div class="col-md-6 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="subscriptionPlan.validityInDays" />
+                  </div>
+                </div>
+              </div>
+            
+         
+  
+  
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-default" (click)="subscriptionPlan={}">Clear Form</button>
+              <button class="btn btn-primary pull-right" (click)="addSubscriptionPlan()">Submit</button>
+            </div>
+          </div>
+  
+      </div>
+    </div>
+  
+  </div>
+  <!-- END PAGE CONTENT WRAPPER -->

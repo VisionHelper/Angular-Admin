@@ -1,0 +1,57 @@
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="row" *ngIf="pageSection=='list'">
+      <div class="col-md-12">
+  
+        <!-- START DEFAULT DATATABLE -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Default</h3>
+            <ul class="panel-controls">
+              <li><a class="panel-collapse cursorPointer"><span class="fa fa-angle-down"></span></a></li>
+              <li><a class="panel-refresh cursorPointer" (click)="getReplacementReqList();"><span class="fa fa-refresh"></span></a></li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>Sr No</th>
+                  <th>Emplyeer Name</th>
+                  <th>Job Seeker Name</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let req of replacementReqList | paginate: { id: 'replacementPagination',
+                  itemsPerPage: 10, currentPage: pageNo, totalItems: replacementReqList.length }; let i = index">
+                  <td>{{(pageNo*10-10)+(i+1)}}</td>
+                  <td>{{req.name}}</td>
+                  <td>{{req.name}}</td>
+                  <td>{{req.Reason}}</td>
+                  <td><label class="switch">
+                        <input type="checkbox" class="switch" value="req.status" [attr.checked]="req.status === 'true' ? true : null"
+                        (click)="ChangeSubscriptionPlanStatus(subscriptionPlan.status)"  />
+                        <span></span>
+                    </label>
+                  </td>
+                  <td>
+                    <i class="fa fa-trash-o" title="Delete" (click)="deleteSubscriptionPlan(req.reqid);"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls id="replacementPagination" (pageChange)="pageNo = $event">
+              </pagination-controls>
+          </div>
+        </div>
+        <!-- END DEFAULT DATATABLE -->
+  
+      </div>
+    </div>
+  
+  
+  </div>
+  <!-- END PAGE CONTENT WRAPPER -->

@@ -5,7 +5,9 @@ import { LoginComponent } from './login/login.component';
 import { CategoryComponent } from './category/category.component';
 import { JobSeekerComponent } from './job-seeker/job-seeker.component';
 import { EmployerComponent } from './employer/employer.component';
-import{ SubscriptionplanComponent } from './subscriptionplan/subscriptionplan.component'
+import{ SubscriptionplanComponent } from './subscriptionplan/subscriptionplan.component';
+import { ReplacementComponent } from './replacement/replacement.component';
+import { ReferenceComponent } from './reference/reference.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,7 +16,9 @@ const routes: Routes = [
   { path: 'category', component: CategoryComponent },
   { path: 'jobSeeker', component: JobSeekerComponent },
   { path: 'employer', component: EmployerComponent },
-  { path: 'subscription', component: SubscriptionplanComponent }
+  { path: 'subscription', component: SubscriptionplanComponent },
+  { path: 'replacement', component: ReplacementComponent },
+  { path: 'reference', component: ReferenceComponent }
 ];
 
 @NgModule({

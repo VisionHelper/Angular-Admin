@@ -18,6 +18,8 @@ import { JobSeekerComponent } from './job-seeker/job-seeker.component';
 import { EmployerComponent } from './employer/employer.component';
 import { FilterbyPipe } from './filterby.pipe';
 import { SubscriptionplanComponent } from './subscriptionplan/subscriptionplan.component';
+import { ReplacementComponent } from './replacement/replacement.component';
+import { ReferenceComponent } from './reference/reference.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SubscriptionplanComponent } from './subscriptionplan/subscriptionplan.c
     JobSeekerComponent,
     EmployerComponent,
     FilterbyPipe,
-    SubscriptionplanComponent
+    SubscriptionplanComponent,
+    ReplacementComponent,
+    ReferenceComponent
   ],
   imports: [
     BrowserModule,

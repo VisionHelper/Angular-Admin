@@ -12,11 +12,11 @@
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="#">Vision Admin</a>
+                        <a >Vision Admin</a>
                         <a class="x-navigation-control"></a>
                     </li>
-                    <li class="xn-profile">
-                        <a href="#" class="profile-mini">
+                    <!-- <li class="xn-profile">
+                        <a class="profile-mini">
                             <img src="./assets/images/users/user.jpg" alt="John Doe"/>
                              <img src="./assets/images/users/user.jpg" alt="John Doe"/>
                         </a>
@@ -29,11 +29,11 @@
                                 <div class="profile-data-title">Vision Helper</div>
                             </div>
                             <div class="profile-controls">
-                                <a href="#" class="profile-control-left"><span class="fa fa-info"></span></a>
-                                <a href="#" class="profile-control-right"><span class="fa fa-envelope"></span></a>
+                                <a class="profile-control-left"><span class="fa fa-info"></span></a>
+                                <a  class="profile-control-right"><span class="fa fa-envelope"></span></a>
                             </div>
                         </div>                                                                        
-                    </li>
+                    </li> -->
                     <li class="xn-title">Navigation</li>
                     <li [ngClass]="{'active': currentPage=='dashboard'}">
                         <a routerLink="/dashboard"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>                        
@@ -49,6 +49,12 @@
                     </li>         
                     <li [ngClass]="{'active': currentPage=='subscription'}">
                         <a routerLink="/subscription"><span class="fa fa-user"></span> <span class="xn-text">Subscription</span></a>
+                    </li>       
+                    <li [ngClass]="{'active': currentPage=='replacement'}">
+                        <a routerLink="/replacement"><span class="fa fa-user"></span> <span class="xn-text">Replacement</span></a>
+                    </li>       
+                    <li [ngClass]="{'active': currentPage=='reference'}">
+                        <a routerLink="/reference"><span class="fa fa-user"></span> <span class="xn-text">Reference</span></a>
                     </li>
                 </ul>
                 <!-- END X-NAVIGATION -->
@@ -62,7 +68,7 @@
                 <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
                     <!-- TOGGLE NAVIGATION -->
                     <li class="xn-icon-button">
-                        <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                        <a class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
                     </li>
                     <!-- END TOGGLE NAVIGATION -->
                     <!-- SEARCH -->
@@ -78,17 +84,7 @@
                     </li> 
                     <!-- END SIGN OUT -->
                     <!-- MESSAGES -->
-                    <li class="xn-icon-button pull-right">
-                        <a href="#"><span class="fa fa-comments"></span></a>
-                        <div class="informer informer-danger">4</div>
-                                          
-                    </li>
-                    <!-- END MESSAGES -->
-                    <!-- TASKS -->
-                    <li class="xn-icon-button pull-right">
-                        <a href="#"><span class="fa fa-tasks"></span></a>
-                        <div class="informer informer-warning">3</div>                      
-                    </li>
+
                     <!-- END TASKS -->
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->                     
@@ -96,7 +92,7 @@
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a routerLink="/dashboard">Home</a></li>                    
-                    <li class="active">Dashboard</li>
+                    <li class="active" style="text-transform: capitalize;">{{currentPage}}</li>
                 </ul>
                 <!-- END BREADCRUMB -->                       
                 

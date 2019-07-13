@@ -7,12 +7,45 @@
       <!-- START DEFAULT DATATABLE -->
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Default</h3>
-          <ul class="panel-controls">
-            <li><a class="panel-collapse cursorPointer"><span class="fa fa-angle-down"></span></a></li>
-            <li><a class="panel-refresh cursorPointer" (click)="getEmployers();"><span class="fa fa-refresh"></span></a></li>
-            <li><a class="cursorPointer" title="Add" (click)="pageSection='add'; employer={}"><span class="fa fa-plus-square"></span></a></li>
-          </ul>
+          <div class="row">
+
+            <div class="col-md-3">
+              <label class="col-md-2 col-xs-12 control-label">Name</label>
+              <div class="col-md-10 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                  <input type="text" class="form-control" [(ngModel)]="filter.name"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="col-md-4 col-xs-12 control-label">Contact No</label>
+                <div class="col-md-8 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="filter.mobileNum" />
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="col-md-4 col-xs-12 control-label">City</label>
+                <div class="col-md-8 col-xs-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                    <input type="text" class="form-control" [(ngModel)]="filter.city" />
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+              <ul class="panel-controls">
+                <li><a class="panel-collapse cursorPointer" (click)="filterEmployersLIst();"><span class="fa fa-search"></span></a></li>
+                <li><a class="panel-refresh cursorPointer" (click)="getEmployers();"><span class="fa fa-refresh"></span></a></li>
+                <li><a class="cursorPointer" title="Add" (click)="pageSection='add'; employer={}"><span class="fa fa-plus-square"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          
         </div>
         <div class="panel-body">
           <table class="table datatable">

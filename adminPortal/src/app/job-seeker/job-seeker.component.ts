@@ -17,7 +17,8 @@ export class JobSeekerComponent implements OnInit {
 
   pageSection : string;
   jobSeeker: any = {};
-  jobSeekers = []
+  jobSeekers = [];
+  tab:any = null;
   pageNo = 1;
   constructor(private AppService :AppService, private router: Router, private route: ActivatedRoute,
       private spinner: NgxSpinnerService,private FilterbyPipe: FilterbyPipe, private toastr: ToastrService) {
@@ -101,6 +102,7 @@ export class JobSeekerComponent implements OnInit {
         this.jobSeeker.jobseekerId = data.data.jobseekerId;
         this.getJobSeekerSkill(this.jobSeeker.jobseekerId);
         this.toastr.success("JobSeeker Added Successfully");
+        this.tab='Skills';
       } else {
         this.toastr.error('Error While Adding JobSeeker');
       }
@@ -112,18 +114,21 @@ export class JobSeekerComponent implements OnInit {
   addJobSeekerSkill(){
     var obj = [];
       this.jobSeekerselectedSkills.forEach(element=> {
-        element.forEach(selectedSkills=> {
-          let temp = {
-            jobseekerId : this.jobSeeker.jobseekerId,
-            subCategoryId :selectedSkills.subCategoryId
-          };
-        obj.push(temp);
+        if(element !=undefined && element.length){
+          element.forEach(selectedSkills=> {
+            let temp = {
+              jobseekerId : this.jobSeeker.jobseekerId,
+              subCategoryId :selectedSkills.subCategoryId
+            };
+            obj.push(temp);
+          });
+        }
       });
-    });
     if(obj.length>0){
-      this.AppService.addJobSeekerSkill(this.jobSeeker.jobseekerId,obj).subscribe((data) =>{
+      this.AppService.addJobSeekerSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
          if(data.success){
           this.toastr.success("JobSeekerSkill Added Successfully");
+          this.tab='CommonSkills';
         }else{
           this.toastr.error("Error While Added JobSeekerSkill");
         }
@@ -137,9 +142,13 @@ export class JobSeekerComponent implements OnInit {
     this.AppService.getJobSeekerSkill(this.jobSeeker.jobseekerId).subscribe(data =>{
       if(data.success){
         this.selectedSkills = data.data.length?data.data:this.selectedSkills;
-        this.jobSeekerselectedSkills = data.data.length?data.data:this.jobSeekerselectedSkills;
-        let jobSeekerSkillsArray = this.FilterbyPipe.transform(this.skillsDetails, 'skillsDetails', this.selectedSkills)
-        this.selectedSkills.forEach(element => {
+        
+      //  this.jobSeekerselectedSkills = data.data.length?data.data:this.jobSeekerselectedSkills;
+        let jobSeekerSkillsArray = this.FilterbyPipe.transform(this.skillsDetails, 'skillsDetails', this.selectedSkills);
+        let selectedSkills = this.selectedSkills;
+        this.selectedSkills = [];
+        selectedSkills.forEach(element => {
+          this.selectedSkills.push(element);
           if(element.subCategories.length){
             let index = jobSeekerSkillsArray.findIndex(item => item.categoryId === element.categoryId);
             this.jobSeekerselectedSkills[index]= element.subCategories;
@@ -164,9 +173,11 @@ export class JobSeekerComponent implements OnInit {
         }
     });
     if(obj.length>0){
-      this.AppService.addJobSeekerCommanSkill(this.jobSeeker.jobseekerId,obj).subscribe((data) =>{
+      this.AppService.addJobSeekerCommanSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
          if(data.success){
           this.toastr.success("JobSeekerCommanSkill Added Successfully");
+          this.tab=null;
+          this.pageSection = 'list' 
         }else{
           this.toastr.error("Error While Added JobSeekerCommanSkill");
         }

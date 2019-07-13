@@ -11,7 +11,7 @@
           <ul class="panel-controls">
             <li><a class="panel-collapse cursorPointer"><span class="fa fa-angle-down"></span></a></li>
             <li><a class="panel-refresh cursorPointer" (click)="getJobSeekersList();"><span class="fa fa-refresh"></span></a></li>
-            <li><a class="cursorPointer" title="Add" (click)="pageSection='add';"><span
+            <li><a class="cursorPointer" title="Add" (click)="pageSection='add'; tab='PersonalDetails'"><span
                   class="fa fa-plus-square"></span></a></li>
           </ul>
         </div>
@@ -63,16 +63,16 @@
           </ul>
         </div>
         <div class="panel-body">
-          <div class="panel-group accordion">
+          <div class="panel-group">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" href="#PersonalDetails">
+                <h4 class="panel-title cursorPointer">
+                  <a  (click)="tab=(tab=='PersonalDetails')?null:'PersonalDetails'">
                     Personal Details
                   </a>
                 </h4>
               </div>
-              <div class="panel-body collapse" id="PersonalDetails">
+              <div class="panel-body" *ngIf="tab=='PersonalDetails'" id="PersonalDetails">
                 <div class="row form-group">
                   <label class="col-md-3 col-xs-12 control-label">Full Name</label>
                   <div class="col-md-6 col-xs-12">
@@ -217,13 +217,13 @@
 
             <div class="panel panel-warning">
               <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" href="#Skills">
+                <h4 class="panel-title cursorPointer">
+                  <a (click)="tab=(tab=='Skills')?null:'Skills'">
                     Skills Details
                   </a>
                 </h4>
               </div>
-              <div class="panel-body collapse" id="Skills">
+              <div class="panel-body" *ngIf="tab=='Skills'" id="Skills">
 
                   <div class="row form-group" *ngFor="let skill of skillsDetails | filterby : 'skillsDetails' : selectedSkills; let i = index">
                       <label class="col-md-3 col-xs-12 control-label">{{skill.categoryName}} </label>
@@ -507,13 +507,13 @@
 
             <div class="panel panel-info">
               <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" href="#CommonSkills">
+                <h4 class="panel-title cursorPointer">
+                  <a  (click)="tab=(tab=='CommonSkills')?null:'CommonSkills'">
                     Common Skills
                   </a>
                 </h4>
               </div>
-              <div class="panel-body collapse" id="CommonSkills">
+              <div *ngIf="tab=='CommonSkills'" class="panel-body" id="CommonSkills">
 
 
                 <div class="row form-group" *ngFor="let skill of CommonSkills; let i = index">

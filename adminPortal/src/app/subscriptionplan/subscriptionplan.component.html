@@ -35,7 +35,7 @@
                 <td>{{subscriptionPlan.validityInDays}}</td>
                 <td>{{subscriptionPlan.numOfLeads}}</td>
                 <td><label class="switch">
-                      <input type="checkbox" class="switch" value="subscriptionPlan.status" [attr.checked]="subscriptionPlan.status === 'true' ? true : null"
+                      <input type="checkbox" class="switch" value="subscriptionPlan.status" [attr.checked]="subscriptionPlan.status === 'ACTIVE' ? true : null"
                       (click)="ChangeSubscriptionPlanStatus(subscriptionPlan,subscriptionPlan.status)"  />
                       <span></span>
                   </label>

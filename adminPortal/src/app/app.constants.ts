@@ -14,7 +14,7 @@ export class AppConstants {
     
     public static addEmployerProfileByAdmin = "http://13.235.41.245:9002/employer/admin";
     public static subscriptionplan = "http://13.235.41.245:9003/subscriptionplan";
-    public static changeSubscriptionPlanStatus = "http://13.235.41.245:9003/subscriptionplan/changestatus/";
+    public static changeSubscriptionPlanStatus = "http://13.235.41.245:9003/subscriptionplan/changestatus";
     public static replacement = "http://13.235.41.245:9002/employer/replacement";
     public static changeReplacementApproveStatus = "http://13.235.41.245:9002/employer/replacement/changeReplacementApproveStatus"
 }

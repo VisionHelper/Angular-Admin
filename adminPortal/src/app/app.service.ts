@@ -152,9 +152,8 @@ export class AppService {
     return this.http.put(AppConstants.subscriptionplan,Obj);
   }
 
-  ChangeSubscriptionPlanStatus(id:any, status:any): Observable<any>{
-    const url = `${AppConstants.changeSubscriptionPlanStatus}/${id}`;
-    return this.http.get(url,status);
+  ChangeSubscriptionPlanStatus(obj:any): Observable<any>{
+    return this.http.put(AppConstants.changeSubscriptionPlanStatus,obj);
   }
 
   getReplacementReqList():Observable<any>{

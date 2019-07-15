@@ -71,11 +71,14 @@ export class SubscriptionplanComponent implements OnInit {
   }
 
   ChangeSubscriptionPlanStatus(obj:any,status:string){
-    let updatedstatus = status == 'active'?'deactive':'active';
+    let updatedstatus = status == 'ACTIVE'?'DEACTIVE':'ACTIVE';
     
-    let reqObj = Object.assign({},obj);
-    reqObj.status = updatedstatus;
-    this.AppService.editSubscriptionPlan(reqObj).subscribe(data =>{
+    let reqObj = {
+      subscriptionPlanId : obj.subscriptionPlanId,
+      status  :updatedstatus
+    };
+
+    this.AppService.ChangeSubscriptionPlanStatus(reqObj).subscribe(data =>{
       if(data.success){
         obj.status = updatedstatus;
         this.getSubscriptionplanList();

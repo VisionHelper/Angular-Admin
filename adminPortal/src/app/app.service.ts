@@ -36,8 +36,8 @@ export class AppService {
     this.currentPage.next(page);
   }
 
-  getCategory(): Observable<Category> {
-    return this.http.get<Category>(AppConstants.category);
+  getCategory(): Observable<any> {
+    return this.http.get<any>(AppConstants.category);
   }
 
 
@@ -54,8 +54,10 @@ export class AppService {
     return this.http.delete<any>(url);
   }
 
-  getSubCategory(): Observable<any> {
-    return this.http.get<any>(AppConstants.subCategory);
+  getSubCategory(type:number): Observable<any> {
+    
+    const url = AppConstants.subCategory+'?type='+type;
+    return this.http.get<any>(url);
   }
 
   addSubCategory(SubcategoryObj:any): Observable<Category> {
@@ -106,12 +108,12 @@ export class AppService {
   }
 
   
-  addJobSeekerCommanSkill(id:any,obj:any):Observable<any>{
+  addJobSeekerCommonSkill(id:any,obj:any):Observable<any>{
     const url = `${AppConstants.commonSkills}/${id}`;
     return this.http.post(url,obj);
   }
 
-  getJobSeekerCommanSkill(id) :Observable<any>{
+  getJobSeekerCommonSkill(id) :Observable<any>{
     const url = `${AppConstants.commonSkills}/${id}`;
     return this.http.get(url);
   }
@@ -153,6 +155,14 @@ export class AppService {
   ChangeSubscriptionPlanStatus(id:any, status:any): Observable<any>{
     const url = `${AppConstants.changeSubscriptionPlanStatus}/${id}`;
     return this.http.get(url,status);
+  }
+
+  getReplacementReqList():Observable<any>{
+    return this.http.get(AppConstants.replacement);
+  }
+  
+  ChangeReplacementReqStatus(reqOj:any):Observable<any>{
+    return this.http.put(AppConstants.changeReplacementApproveStatus,reqOj);
   }
 
 }

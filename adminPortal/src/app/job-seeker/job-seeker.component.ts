@@ -159,36 +159,36 @@ export class JobSeekerComponent implements OnInit {
   };
 
 
-  addJobJobSeekerCommanSkils(){
+  addJobJobSeekerCommonSkils(){
     var obj = [];
       this.jobSeekerselectedCommonSkills.forEach(element=> {
        if(element !=undefined && element.length) {
-          element.forEach(selectedCommanSkills=> {
+          element.forEach(selectedCommonSkills=> {
               let temp = {
                 jobseekerId : this.jobSeeker.jobseekerId,
-                subCategoryId : selectedCommanSkills.subCategoryId
+                subCategoryId : selectedCommonSkills.subCategoryId
               };
             obj.push(temp);
           });
         }
     });
     if(obj.length>0){
-      this.AppService.addJobSeekerCommanSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
+      this.AppService.addJobSeekerCommonSkill(this.jobSeeker.jobseekerId,obj).subscribe(data =>{
          if(data.success){
-          this.toastr.success("JobSeekerCommanSkill Added Successfully");
+          this.toastr.success("JobSeekerCommonSkill Added Successfully");
           this.tab=null;
           this.pageSection = 'list' 
         }else{
-          this.toastr.error("Error While Added JobSeekerCommanSkill");
+          this.toastr.error("Error While Added JobSeekerCommonSkill");
         }
       }, (err) => {
-        this.toastr.error('Error While Adding JobSeekerCommanSkill');
+        this.toastr.error('Error While Adding JobSeekerCommonSkill');
       });
     }
   };
 
-  getJobSeekerCommanSkill(id:any){
-    this.AppService.getJobSeekerCommanSkill(id).subscribe(data =>{
+  getJobSeekerCommonSkill(id:any){
+    this.AppService.getJobSeekerCommonSkill(id).subscribe(data =>{
       if(data.success){
         this.jobSeekerselectedCommonSkills = [];
         data.data.forEach(element => {
@@ -204,7 +204,7 @@ export class JobSeekerComponent implements OnInit {
   editJobSeeker(jobSeeker:any):void{
     this.jobSeeker = Object.assign({},jobSeeker);
     this.getJobSeekerSkill(this.jobSeeker.jobseekerId);
-    this.getJobSeekerCommanSkill(this.jobSeeker.jobseekerId);
+    this.getJobSeekerCommonSkill(this.jobSeeker.jobseekerId);
     this.pageSection = 'add';
   };
 

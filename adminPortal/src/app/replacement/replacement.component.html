@@ -1,6 +1,6 @@
 <!-- PAGE CONTENT WRAPPER -->
 <div class="page-content-wrap">
-    <div class="row" *ngIf="pageSection=='list'">
+    <div class="row">
       <div class="col-md-12">
   
         <!-- START DEFAULT DATATABLE -->
@@ -13,32 +13,36 @@
             </ul>
           </div>
           <div class="panel-body">
-            <table class="table datatable">
+            <table class="table">
               <thead>
                 <tr>
                   <th>Sr No</th>
                   <th>Emplyeer Name</th>
                   <th>Job Seeker Name</th>
                   <th>Reason</th>
+                  <th>Transaction Date</th>
+                  <th>No Of Leads</th>
+                  <th>Transaction Type</th>
                   <th>Status</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let req of replacementReqList | paginate: { id: 'replacementPagination',
                   itemsPerPage: 10, currentPage: pageNo, totalItems: replacementReqList.length }; let i = index">
                   <td>{{(pageNo*10-10)+(i+1)}}</td>
-                  <td>{{req.name}}</td>
-                  <td>{{req.name}}</td>
-                  <td>{{req.Reason}}</td>
-                  <td><label class="switch">
-                        <input type="checkbox" class="switch" value="req.status" [attr.checked]="req.status === 'true' ? true : null"
-                        (click)="ChangeSubscriptionPlanStatus(subscriptionPlan.status)"  />
-                        <span></span>
-                    </label>
-                  </td>
-                  <td>
-                    <i class="fa fa-trash-o" title="Delete" (click)="deleteSubscriptionPlan(req.reqid);"></i>
+                  <td>{{req.employer.name}}<br><span>{{req.employer.contactNo}}<br>{{req.employer.city}}</span></td>
+                  <td>{{req.jobSeeker.name}}<br><span>{{req.jobSeeker.contactNo}}<br> {{req.jobSeeker.city}}</span></td>
+                  <td>{{req.description}}</td>
+                  <td>{{req.dateOfTransaction | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{req.noOfLeads}}</td>
+                  <td>{{req.transactionType}}</td>
+                  <td style="width:11%">
+                    <select class="form-control select" (change)="getReason(req,req.approveStatus)" [(ngModel)]="req.approveStatus">
+                        <option value="REQUESTED">Requested</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="APPROVED">Approved</option>
+                        <option value="REJECTED">Rejected</option>
+                    </select>
                   </td>
                 </tr>
               </tbody>
@@ -52,6 +56,38 @@
       </div>
     </div>
   
-  
   </div>
+
+
+  
+<div id="ReasonModel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title" style="text-transform: capitalize;"> {{reqStatusChangeObj.type}} Reason</h4>
+          </div>
+          <div class="modal-body">
+              <div class="panel-body">
+                  <div class="row form-group">
+                      <label class="col-md-3 col-xs-12 control-label">Reason</label>
+                      <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                             <textarea class="form-control"  [(ngModel)]="reqStatusChangeObj.approveReason"></textarea>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button  class="btn btn-primary" (click)="ChangeReplacementReqStatus()">Submit</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+
+  </div>
+</div>
   <!-- END PAGE CONTENT WRAPPER -->

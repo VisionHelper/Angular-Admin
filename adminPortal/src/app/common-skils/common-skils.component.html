@@ -1,0 +1,226 @@
+<div class="page-content-wrap">
+
+  <div class="row">
+      <div class="col-md-12">
+
+          <form class="form-horizontal">
+
+              <div class="panel panel-default tabs">
+                  <ul class="nav nav-tabs" role="tablist">
+                      <li class="active"><a href="#Category" role="tab" data-toggle="tab">Common Skill</a></li>
+                      <li><a href="#Sub-Category" role="tab" data-toggle="tab">Sub-Common Skill</a></li>
+                  </ul>
+                  <div class="panel-body tab-content">
+                      <div class="tab-pane active" id="Category">
+                          <div class="page-content-wrap">
+
+                              <div class="row">
+                                  <div class="col-md-12">
+
+                                      <!-- START DEFAULT DATATABLE -->
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                              <h3 class="panel-title">Common Skill</h3>
+                                              <ul class="panel-controls">
+                                                  <li><a class="panel-collapse"><span
+                                                              class="fa fa-angle-down"></span></a></li>
+                                                  <li><a class="panel-refresh" (click)="getCategory()"><span
+                                                              class="fa fa-refresh"></span></a></li>
+                                                  <li><a data-toggle="modal" data-target="#add-Category" (click)="category={};"><span
+                                                              class="fa fa-plus-square"></span></a></li>
+                                              </ul>
+                                          </div>
+                                          <div class="panel-body">
+                                              <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Sr.No</th>
+                                                          <th>Name</th>
+                                                          <th>Description</th>
+                                                          <th>Status</th>
+                                                          <th>Action</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      <tr *ngFor="let categoryObj of categories | paginate: { id: 'commonSkillPagination',
+                                                      itemsPerPage: 10,
+                                                      currentPage: PageNO,
+                                                      totalItems: categories.length }; let i = index">
+                                                          <td>{{(PageNO*10-10)+(i+1)}}</td>
+                                                          <td>{{categoryObj.categoryName}}</td>
+                                                          <td>{{categoryObj.description}}</td>
+                                                          <td>{{categoryObj.status}}</td>
+                                                          <th><i class="fa fa-edit" title="Edit" data-toggle="modal" data-target="#add-Category" (click)="editCategory(categoryObj);"> </i>&nbsp; &nbsp;
+                                                              <i class="fa fa-trash-o" title="Delete" (click)="deleteCategory(categoryObj.categoryId)"></i></th>
+                                                      </tr>
+                                                  </tbody>
+                                              </table>
+                                              <pagination-controls id="commonSkillPagination" (pageChange)="sub_PageNO = $event">
+                                              </pagination-controls>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+                      <div class="tab-pane" id="Sub-Category">
+                          <div class="page-content-wrap" >
+
+                              <div class="row">
+                                  <div class="col-md-12">
+
+                                      <!-- START DEFAULT DATATABLE -->
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                              <h3 class="panel-title">Sub-Common Skill List</h3>
+                                              <ul class="panel-controls">
+                                                  <li><a  class="panel-collapse cursorPointer"><span
+                                                              class="fa fa-angle-down"></span></a></li>
+                                                  <li><a class="panel-refresh cursorPointer" (click)="getSubCategory()"><span
+                                                              class="fa fa-refresh"></span></a></li>
+                                                  <li><a class="cursorPointer" data-toggle="modal" data-target="#add-SubCategory" (click)="sub_Category={};"><span
+                                                              class="fa fa-plus-square"></span></a></li>
+                                              </ul>
+                                          </div>
+                                          <div class="panel-body">
+                                              <table class="table">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Sr.No</th>
+                                                          <th>Name</th>
+                                                          <th>Description</th>
+                                                          <th>Status</th>
+                                                          <th>Action</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      <tr *ngFor="let sub_Category of sub_Categories | paginate: { id: 'SubcommonSkillPagination',
+                                                          itemsPerPage: 10, currentPage: sub_PageNO, totalItems: sub_Categories.length }; let i = index">
+                                                          <td>{{(sub_PageNO*10-10)+(i+1)}}</td>
+                                                          <td>{{sub_Category.subCategoryName}}</td>
+                                                          <td>{{sub_Category.description}}</td>
+                                                          <td>{{sub_Category.status}}</td>
+                                                          <th><i class="fa fa-edit" data-toggle="modal" data-target="#add-SubCategory"  (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp;
+                                                               <i class="fa fa-trash-o" title="Delete" (click)="deleteSubCategory(sub_Category.subCategoryId);"></i></th>
+                                                      </tr>
+                                                  </tbody>
+                                              </table>
+                                              <pagination-controls id="SubcommonSkillPagination" (pageChange)="sub_PageNO = $event">
+                                              </pagination-controls>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </form>
+
+      </div>
+  </div>
+
+</div>
+
+
+<!-- Modal -->
+<div id="add-Category" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Common Skill</h4>
+          </div>
+          <div class="modal-body">
+              <div class="panel-body">
+                  <div class="row form-group">
+                      <label class="col-md-3 col-xs-12 control-label">Name</label>
+                      <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                              <input type="text" class="form-control" [(ngModel)]="category.categoryName"/>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                      <label class="col-md-3 col-xs-12 control-label">Description</label>
+                      <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                              <textarea class="form-control" [(ngModel)]="category.description"></textarea>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button *ngIf="!(category.categoryId)" class="btn btn-primary" (click)="addCategory()">Submit</button>
+              <button *ngIf ="category.categoryId" class="btn btn-primary" (click)="addCategory()">Update</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+
+  </div>
+</div>
+
+<div id="add-SubCategory" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Sub-Common Skill</h4>
+          </div>
+          <div class="modal-body">
+              <div class="panel-body">
+                  <div class=" row form-group">
+                      <label class="col-md-3 control-label">Default</label>
+                      <div class="col-md-6">
+                          <select class="form-control select"  [(ngModel)]="sub_Category.categoryId">
+                              <option *ngFor="let category of categories; let i = index" [value]="category.categoryId">{{category.categoryName}}</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <label class="col-md-3 col-xs-12 control-label">Name</label>
+                      <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                              <input type="text" class="form-control" [(ngModel)]="sub_Category.subCategoryName"/>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row form-group">
+                      <label class="col-md-3 col-xs-12 control-label">Description</label>
+                      <div class="col-md-6 col-xs-12">
+                          <div class="input-group">
+                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                              <textarea class="form-control" [(ngModel)]="sub_Category.description"></textarea>
+                          </div>
+                      </div>
+                  </div>
+
+
+
+              </div>
+          </div>
+          <div class="modal-footer">
+             
+              <button *ngIf="!(sub_Category.subCategoryId)" class="btn btn-primary" (click)="addSubCategory()">Submit</button>
+              <button *ngIf ="sub_Category.subCategoryId" class="btn btn-primary" (click)="addSubCategory()">Update</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+
+  </div>
+</div>
+<!-- Modal -->
+

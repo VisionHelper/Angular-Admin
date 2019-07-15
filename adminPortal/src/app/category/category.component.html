@@ -44,9 +44,9 @@
                                                     <tbody>
                                                         <tr *ngFor="let categoryObj of categories | paginate: { id: 'categoryPagination',
                                                         itemsPerPage: 10,
-                                                        currentPage: p,
+                                                        currentPage: catPageNO,
                                                         totalItems: categories.length }; let i = index">
-                                                            <td>{{(p*10-10)+(i+1)}}</td>
+                                                            <td>{{(catPageNO*10-10)+(i+1)}}</td>
                                                             <td>{{categoryObj.categoryName}}</td>
                                                             <td>{{categoryObj.description}}</td>
                                                             <td>{{categoryObj.status}}</td>
@@ -55,7 +55,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <pagination-controls id="categoryPagination" (pageChange)="p = $event">
+                                                <pagination-controls id="categoryPagination" (pageChange)="catPageNO = $event">
                                                 </pagination-controls>
                                             </div>
                                         </div>
@@ -97,8 +97,8 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let sub_Category of sub_Categories | paginate: { id: 'SubcategoryPagination',
-                                                            itemsPerPage: 10, currentPage: p, totalItems: sub_Categories.length }; let i = index">
-                                                            <td>{{(p*10-10)+(i+1)}}</td>
+                                                            itemsPerPage: 10, currentPage: sub_catPageNO, totalItems: sub_Categories.length }; let i = index">
+                                                            <td>{{(sub_catPageNO*10-10)+(i+1)}}</td>
                                                             <td>{{sub_Category.subCategoryName}}</td>
                                                             <td>{{sub_Category.description}}</td>
                                                             <td>{{sub_Category.status}}</td>
@@ -107,7 +107,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <pagination-controls id="SubcategoryPagination" (pageChange)="p = $event">
+                                                <pagination-controls id="SubcategoryPagination" (pageChange)="sub_catPageNO = $event">
                                                 </pagination-controls>
                                             </div>
                                         </div>
@@ -155,25 +155,6 @@
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
                                 <textarea class="form-control" [(ngModel)]="category.description"></textarea>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <label class="col-md-3 col-xs-12 control-label">Is Main Category</label>
-                        <div class="col-md-6 col-xs-12">
-                          <div class="input-group">
-                            <div class="radio">
-                              <label>
-                                <input type="radio" name="type" [value]=0 [(ngModel)]="category.type"/>
-                                Yes
-                              </label>
-                            </div>
-                            <div class="radio">
-                              <label>
-                                <input type="radio" name="type" [value]=1 [(ngModel)]="category.type" />
-                                No
-                              </label>
-                            </div>
-                          </div>
                         </div>
                     </div>
                 </div>

@@ -2,17 +2,17 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute,Router } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
-import { Category } from './category';
+import { Category } from '../category/category';
 import { from } from 'rxjs';
 
 declare var $ :any;
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-common-skils',
+  templateUrl: './common-skils.component.html',
+  styleUrls: ['./common-skils.component.css']
 })
-export class CategoryComponent implements OnInit {
-  
+export class CommonSkilsComponent implements OnInit {
+
   constructor( private AppService: AppService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService) {
     this.AppService.setCurrentPage((this.router.url).split('/')[1]);
    }
@@ -21,8 +21,8 @@ export class CategoryComponent implements OnInit {
   categories : any = []; 
   sub_Category : any = {};
   sub_Categories : any = [];
-  catPageNO : number = 1;
-  sub_catPageNO : number = 1;
+  PageNO : number = 1;
+  sub_PageNO : number = 1;
 
   ngOnInit() {
     this.getCategory();
@@ -31,38 +31,38 @@ export class CategoryComponent implements OnInit {
   
   getCategory(){
     this.AppService.getCategory().subscribe(data => {
-      this.categories = data.filter(item => item.type != 1);
+      this.categories = data.filter(item => (item.type ==1));
     })
   }
 
   addCategory(): void{
     this.category.status = "Active";
-    this.category.type = 0;
+    this.category.type = 1;
     if(!this.category.categoryId){
       this.AppService.addCategory(this.category).subscribe((data)=>{
         if(data.success){
-          this.toastr.success('Category Added Successfully');
+          this.toastr.success('Common Skills Added Successfully');
           $("#add-Category").modal("hide");
           this.category = new Category;
           this.getCategory();
         }else{
-          this.toastr.error('Error While Adding Category');
+          this.toastr.error('Error While Adding Common Skills');
         }
       },(err)=>{
-        this.toastr.error('Error While Adding Category');
+        this.toastr.error('Error While Adding Common Skills');
       });
     }else{
       this.AppService.editCategory(this.category).subscribe((data)=>{
         if(data.success){
-          this.toastr.success('Category Updated Successfully');
+          this.toastr.success('Common Skills Updated Successfully');
           $("#add-Category").modal("hide");
           this.category = new Category;
           this.getCategory();
         }else{
-          this.toastr.error('Error While Updating Category');
+          this.toastr.error('Error While Updating Common Skills');
         } 
       },(err)=>{
-          this.toastr.error('Error While Updating Category');
+          this.toastr.error('Error While Updating Common Skills');
       });
     }
   }
@@ -74,23 +74,23 @@ export class CategoryComponent implements OnInit {
   };
 
   deleteCategory(categoryId:any){
-    let isDelete = confirm("Are you sure you want to delete Category");
+    let isDelete = confirm("Are you sure you want to delete Common Skills");
     if(isDelete==true){
       this.AppService.deleteCategory(categoryId).subscribe(data => {
         if(data.success){
-          this.toastr.success('Category Deleted Successfully');
+          this.toastr.success('Common Skills Deleted Successfully');
           this.getCategory();
         }else{
-          this.toastr.error('Error While Deleting Category');
+          this.toastr.error('Error While Deleting Common Skills');
         }
       },(err)=>{
-        this.toastr.error('Error While Deleting Category');
+        this.toastr.error('Error While Deleting Common Skills');
       });
     }
   };
   
   getSubCategory(){
-      this.AppService.getSubCategory(0).subscribe(data => {
+      this.AppService.getSubCategory(1).subscribe(data => {
       console.log(data);
       this.sub_Categories = data;
     })
@@ -101,26 +101,26 @@ export class CategoryComponent implements OnInit {
     if(!this.sub_Category.subCategoryId){
       this.AppService.addSubCategory(this.sub_Category).subscribe((data)=>{
         if(data.success){
-          this.toastr.success('Sub-Category Added Successfully');
+          this.toastr.success('Sub-Common Skills Added Successfully');
           $("#add-SubCategory").modal("hide");
           this.sub_Category = {};
           this.getSubCategory();
         }else{
-          this.toastr.error('Error While Adding Sub-Category');
+          this.toastr.error('Error While Adding Sub-Common Skills');
         }
         
       },(err)=>{
-        this.toastr.error('Error While Adding Sub-Category');
+        this.toastr.error('Error While Adding Sub-Common Skills');
       });
     }else{
       this.AppService.editSubCategory(this.sub_Category).subscribe((data)=>{
         if(data.success){
-          this.toastr.success('Sub-Category Updated Successfully');
+          this.toastr.success('Sub-Common Skills Updated Successfully');
           $("#add-SubCategory").modal("hide");
           this.sub_Category = {};
           this.getSubCategory();
         }else{
-          this.toastr.error('Error While Updating Sub-Category');
+          this.toastr.error('Error While Updating Sub-Common Skills');
         }
       },(err)=>{
         this.toastr.error('Error While Updating Sub-Category');
@@ -134,17 +134,17 @@ export class CategoryComponent implements OnInit {
   };
 
   deleteSubCategory(subCategoryId:any){
-    let isDelete = confirm("Are you sure you want to delete Sub Category");
+    let isDelete = confirm("Are you sure you want to delete Sub Common Skills");
     if(isDelete==true){
       this.AppService.deleteSubCategory(subCategoryId).subscribe(data => {
         if(data.success){
-          this.toastr.success('Sub-Category Deleted Successfully');
+          this.toastr.success('Sub-Common Skills Deleted Successfully');
           this.getSubCategory();
         }else{
-          this.toastr.error('Error While Deleting Sub-Category');
+          this.toastr.error('Error While Deleting Sub-Common Skills');
         }
       },(err)=>{
-        this.toastr.error('Error While Deleting Sub-Category');
+        this.toastr.error('Error While Deleting Sub-Common Skills');
       });
     }
   };

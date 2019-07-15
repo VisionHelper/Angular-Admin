@@ -20,6 +20,7 @@ import { FilterbyPipe } from './filterby.pipe';
 import { SubscriptionplanComponent } from './subscriptionplan/subscriptionplan.component';
 import { ReplacementComponent } from './replacement/replacement.component';
 import { ReferenceComponent } from './reference/reference.component';
+import { CommonSkilsComponent } from './common-skils/common-skils.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ReferenceComponent } from './reference/reference.component';
     FilterbyPipe,
     SubscriptionplanComponent,
     ReplacementComponent,
-    ReferenceComponent
+    ReferenceComponent,
+    CommonSkilsComponent
   ],
   imports: [
     BrowserModule,

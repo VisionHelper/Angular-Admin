@@ -4,19 +4,19 @@ import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
 
+declare var $ :any;
 @Component({
   selector: 'app-replacement',
   templateUrl: './replacement.component.html',
   styleUrls: ['./replacement.component.css']
 })
 export class ReplacementComponent implements OnInit {
-
-
-
   
   pageSection : string;
   pageNo = 1;
   replacementReqList :any = [];
+  reqStatusChangeObj :any = {};
+
   constructor(private AppService: AppService, private datePipe: DatePipe, private router: Router, private route: ActivatedRoute, private toastr: ToastrService) {
     this.AppService.setCurrentPage((this.router.url).split('/')[1]);
    }
@@ -27,30 +27,41 @@ export class ReplacementComponent implements OnInit {
   }
 
   getReplacementReqList(){
-    this.pageSection ='list';
-    this.AppService.getSubscriptionplanList().subscribe(data =>{
-      if(data.length){
-        this.replacementReqList = data;
+    this.AppService.getReplacementReqList().subscribe(data =>{
+      if(data.success){
+        this.replacementReqList = data.data;
       }
     })
   }
 
- 
-  ChangeReplacementReqStatus(obj:any,status:string){
-    let updatedstatus = status == 'active'?'deactive':'active';
+  getReason(obj:any,status:string){
+    this.reqStatusChangeObj = {
+      employerLeadsId : obj.employerLeadsId,
+      employerSubscriptionId : obj.employerSubscriptionId,
+      status : "REPLACEMENT",
+      approveReason : null,
+      type : status
+    };
+    if(status == "APPROVED" || status == "REJECTED"){
+      $('#ReasonModel').modal('show');
+    }else{
+      this.ChangeReplacementReqStatus()
+    }
+  }
+
+  ChangeReplacementReqStatus(){
     
-    let reqObj = Object.assign({},obj);
-    reqObj.status = updatedstatus;
-    this.AppService.editSubscriptionPlan(obj).subscribe(data =>{
-      if(data.success){
-        obj.status = updatedstatus;
-        this.getReplacementReqList();
+    this.AppService.ChangeReplacementReqStatus(this.reqStatusChangeObj).subscribe(data =>{
+      if(data.success){ 
+      $('#ReasonModel').modal('hide');
         this.toastr.success("Status Updated Successfully");
       }else{
+        this.getReplacementReqList();
         this.toastr.error("Error While Updating Status");
       }
     },(err)=>{
-      this.toastr.error('Error While Adding Category');
+      this.getReplacementReqList();
+      this.toastr.error("Error While Updating Status");
     });
   }
 

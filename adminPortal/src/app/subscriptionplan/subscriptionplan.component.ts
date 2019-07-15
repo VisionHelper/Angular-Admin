@@ -52,7 +52,9 @@ export class SubscriptionplanComponent implements OnInit {
           }else{
             this.toastr.error("Error While Adding  SubscriptionPlan");
           }
-        })
+        },(err)=>{
+          this.toastr.error("Error While Adding SubscriptionPlan");
+        });
     }else{
       //  this.subscriptionPlan.updatedDate = this.datePipe.transform(new Date(),"yyyy-MM-dd");
         this.AppService.editSubscriptionPlan(this.subscriptionPlan).subscribe(data =>{
@@ -62,7 +64,9 @@ export class SubscriptionplanComponent implements OnInit {
           }else{
             this.toastr.error("Error While Updating SubscriptionPlan");
           }
-        })
+        },(err)=>{
+          this.toastr.error("Error While Updating SubscriptionPlan");
+        });
     }
   }
 
@@ -71,15 +75,19 @@ export class SubscriptionplanComponent implements OnInit {
     
     let reqObj = Object.assign({},obj);
     reqObj.status = updatedstatus;
-    this.AppService.editSubscriptionPlan(obj).subscribe(data =>{
+    this.AppService.editSubscriptionPlan(reqObj).subscribe(data =>{
       if(data.success){
         obj.status = updatedstatus;
         this.getSubscriptionplanList();
         this.toastr.success("Status Updated Successfully");
       }else{
+        this.getSubscriptionplanList();
         this.toastr.error("Error While Updating Status");
-      }
-    })
+        }
+    },(err)=>{
+      this.getSubscriptionplanList();
+      this.toastr.error("Error While Updating Status");
+      });
   }
 
 

@@ -113,7 +113,14 @@ export class CategoryComponent implements OnInit {
         this.toastr.error('Error While Adding Sub-Category');
       });
     }else{
-      this.AppService.editSubCategory(this.sub_Category).subscribe((data)=>{
+      let reqObj = {
+          "categoryId": this.sub_Category.categoryId,
+          "deleted": true,
+          "status": "Active",
+          "subCategoryId": this.sub_Category.subCategoryId,
+          "subCategoryName": this.sub_Category.subCategoryName
+      };
+      this.AppService.editSubCategory(reqObj).subscribe((data)=>{
         if(data.success){
           this.toastr.success('Sub-Category Updated Successfully');
           $("#add-SubCategory").modal("hide");

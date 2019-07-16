@@ -90,7 +90,6 @@
                                                       <tr>
                                                           <th>Sr.No</th>
                                                           <th>Name</th>
-                                                          <th>Description</th>
                                                           <th>Status</th>
                                                           <th>Action</th>
                                                       </tr>
@@ -100,7 +99,6 @@
                                                           itemsPerPage: 10, currentPage: sub_PageNO, totalItems: sub_Categories.length }; let i = index">
                                                           <td>{{(sub_PageNO*10-10)+(i+1)}}</td>
                                                           <td>{{sub_Category.subCategoryName}}</td>
-                                                          <td>{{sub_Category.description}}</td>
                                                           <td>{{sub_Category.status}}</td>
                                                           <th><i class="fa fa-edit" data-toggle="modal" data-target="#add-SubCategory"  (click)="editSubCategory(sub_Category);" title="Edit"> </i>&nbsp; &nbsp;
                                                                <i class="fa fa-trash-o" title="Delete" (click)="deleteSubCategory(sub_Category.subCategoryId);"></i></th>
@@ -197,19 +195,6 @@
                           </div>
                       </div>
                   </div>
-
-                  <div class="row form-group">
-                      <label class="col-md-3 col-xs-12 control-label">Description</label>
-                      <div class="col-md-6 col-xs-12">
-                          <div class="input-group">
-                              <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                              <textarea class="form-control" [(ngModel)]="sub_Category.description"></textarea>
-                          </div>
-                      </div>
-                  </div>
-
-
-
               </div>
           </div>
           <div class="modal-footer">

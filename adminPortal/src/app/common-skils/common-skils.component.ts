@@ -113,7 +113,14 @@ export class CommonSkilsComponent implements OnInit {
         this.toastr.error('Error While Adding Sub-Common Skills');
       });
     }else{
-      this.AppService.editSubCategory(this.sub_Category).subscribe((data)=>{
+      let reqObj = {
+        "categoryId": this.sub_Category.categoryId,
+        "deleted": true,
+        "status": "Active",
+        "subCategoryId": this.sub_Category.subCategoryId,
+        "subCategoryName": this.sub_Category.subCategoryName
+      };
+      this.AppService.editSubCategory(reqObj).subscribe((data)=>{
         if(data.success){
           this.toastr.success('Sub-Common Skills Updated Successfully');
           $("#add-SubCategory").modal("hide");

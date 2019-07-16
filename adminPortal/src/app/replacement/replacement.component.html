@@ -22,7 +22,6 @@
                   <th>Reason</th>
                   <th>Transaction Date</th>
                   <th>No Of Leads</th>
-                  <th>Transaction Type</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -30,12 +29,11 @@
                 <tr *ngFor="let req of replacementReqList | paginate: { id: 'replacementPagination',
                   itemsPerPage: 10, currentPage: pageNo, totalItems: replacementReqList.length }; let i = index">
                   <td>{{(pageNo*10-10)+(i+1)}}</td>
-                  <td>{{req.employer.name}}<br><span>{{req.employer.contactNo}}<br>{{req.employer.city}}</span></td>
-                  <td>{{req.jobSeeker.name}}<br><span>{{req.jobSeeker.contactNo}}<br> {{req.jobSeeker.city}}</span></td>
+                  <td><span style="font-weight: bold;">{{req.employer.name}}</span><br><span>{{req.employer.contactNo}}<br>{{req.employer.city}}</span></td>
+                  <td><span style="font-weight: bold;">{{req.jobSeeker.name}}</span><br><span>{{req.jobSeeker.contactNo}}<br> {{req.jobSeeker.city}}</span></td>
                   <td>{{req.description}}</td>
                   <td>{{req.dateOfTransaction | date: 'dd/MM/yyyy'}}</td>
                   <td>{{req.noOfLeads}}</td>
-                  <td>{{req.transactionType}}</td>
                   <td style="width:11%">
                     <select class="form-control select" (change)="getReason(req,req.approveStatus)" [(ngModel)]="req.approveStatus">
                         <option value="REQUESTED">Requested</option>

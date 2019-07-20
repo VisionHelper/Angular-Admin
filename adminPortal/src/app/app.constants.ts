@@ -2,6 +2,7 @@ export class AppConstants {
     public static job = "http://13.235.41.245:9001/";
     public static employer = "http://13.235.41.245:9002/employer";
     public static cat = "http://13.235.41.245:9003/";
+    public static login = "http://13.235.41.245:9003/admin/login";
     public static category = AppConstants.cat +'category';
     public static subCategory = AppConstants.cat +'subcategory';
     public static addJobseekerByAdmin = AppConstants.job +'jobseeker/admin';
@@ -16,5 +17,7 @@ export class AppConstants {
     public static subscriptionplan = "http://13.235.41.245:9003/subscriptionplan";
     public static changeSubscriptionPlanStatus = "http://13.235.41.245:9003/subscriptionplan/changestatus";
     public static replacement = "http://13.235.41.245:9002/employer/replacement";
-    public static changeReplacementApproveStatus = "http://13.235.41.245:9002/employer/replacement/changeReplacementApproveStatus"
+    public static changeReplacementApproveStatus = "http://13.235.41.245:9002/employer/replacement/changeReplacementApproveStatus";
+    public static getReferral ="http://13.235.41.245:9003/user/referral";
+    public static dashBoardCount = "http://13.235.41.245:9003/admin/users/count";
 }

@@ -17,6 +17,7 @@ export class AppService {
   
   public subject = new Subject<any>();
   public currentPage = new Subject<any>();
+  public DashBoardCounts = new Subject<any>();
 
   constructor(private router: Router, private http: HttpClient) {
     if (!sessionStorage.getItem('dataSource') || sessionStorage.getItem('dataSource') == 'false') {
@@ -26,15 +27,30 @@ export class AppService {
     /* this.myMethod$ = this.myMethodSubject.asObservable();*/
   }
 
+
   checkLogin(data) {
     console.log(data); // I have data! Let's return it so subscribers can use it!
     // we can do stuff with data if we want
     this.subject.next(data);
   }
 
+  login(reqOj:any): Observable<any> {
+    return this.http.post<any>(AppConstants.login,reqOj);
+  }
+
   setCurrentPage(page:string) {
     this.currentPage.next(page);
   }
+
+  triggerDashBoardCount(){
+    this.DashBoardCounts.next();
+  }
+
+  
+  getDashBoardCount(): Observable<any> {
+    return this.http.get<any>(AppConstants.dashBoardCount);
+  }
+
 
   getCategory(): Observable<any> {
     return this.http.get<any>(AppConstants.category);
@@ -162,6 +178,10 @@ export class AppService {
   
   ChangeReplacementReqStatus(reqOj:any):Observable<any>{
     return this.http.put(AppConstants.changeReplacementApproveStatus,reqOj);
+  }
+
+  getReferenceList():Observable<any>{
+    return this.http.get(AppConstants.getReferral);
   }
 
 }

@@ -55,6 +55,7 @@
                     </li>       
                     <li [ngClass]="{'active': currentPage=='replacement'}">
                         <a routerLink="/replacement"><span class="fa fa-group"></span> <span class="xn-text">Replacement</span></a>
+                        <div class="informer informer-warning">+{{DashBoardCounts.pendingJobseekerCount}}</div>
                     </li>       
                     <li [ngClass]="{'active': currentPage=='reference'}">
                         <a routerLink="/reference"><span class="fa fa-gift"></span> <span class="xn-text">Reference</span></a>

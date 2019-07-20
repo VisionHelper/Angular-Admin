@@ -12,6 +12,8 @@ export class AppComponent {
   islogin = false;
   pdfSrc: String;
   currentPage : any = "dashboard";
+  referenceList :any = [];
+  DashBoardCounts : any = [];
   constructor(private AppService:AppService, private router:Router,
      private activatedRoute : ActivatedRoute, private spinner: NgxSpinnerService) {
   
@@ -26,6 +28,11 @@ export class AppComponent {
       this.currentPage = data; // And he have data here too!
     }
   );
+
+  this.AppService.DashBoardCounts.subscribe((data) => {
+      this.getDashBoardCounts();
+    }
+  );
 }
 
   
@@ -34,11 +41,19 @@ export class AppComponent {
     if(sessionStorage.getItem('dataSource')){
       this.islogin = true;
     }
-    
+    this.getDashBoardCounts();
    // this.pdfSrc = './assets/bank_stat_dec_2015.pdf';
   }
 
+  getDashBoardCounts(){
+   this.AppService.getDashBoardCount().subscribe(data =>{
+     if(data.success){
+       this.DashBoardCounts = data.data;
+     }
+   })
+  }
 
+  
   logout():void{
     this.islogin = false;
     this.router.navigate(["/login"])

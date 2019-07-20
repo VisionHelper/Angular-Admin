@@ -9,12 +9,21 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private AppService: AppService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService) {
+  DashBoardCounts : any = [];
+  constructor(private AppService: AppService, private router: Router, private route: ActivatedRoute) {
     this.AppService.setCurrentPage((this.router.url).split('/')[1]); 
    }
 
   ngOnInit() {
-    
+    this.getDashBoardCounts()
   }
+
+  getDashBoardCounts(){
+    this.AppService.getDashBoardCount().subscribe(data =>{
+      if(data.success){
+        this.DashBoardCounts = data.data;
+      }
+    })
+   }
 
 }

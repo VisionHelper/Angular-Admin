@@ -63,7 +63,8 @@ export class JobSeekerComponent implements OnInit {
       if(data.success){
         this.jobSeekersList = data.data;
       }
-    })
+    });
+    this.AppService.triggerDashBoardCount();
   }
 
   getCities(){

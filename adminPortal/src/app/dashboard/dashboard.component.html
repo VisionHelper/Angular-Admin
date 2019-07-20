@@ -2,14 +2,15 @@
   <div class="col-md-3">
       
       <!-- START WIDGET SLIDER -->
-      <div class="widget widget-default widget-carousel">
-          <div>
-              <div>                                    
-                  <div class="widget-title">Total Visitors</div>                                                                        
-                  <div class="widget-subtitle">09/06/2019 15:23</div>
-                  <div class="widget-int">3,548</div>
-              </div>    
-          </div>                            
+      <div class="widget widget-default widget-item-icon">
+        <div class="widget-item-left">
+            <span class="fa fa-user"></span>
+        </div>
+        <div class="widget-data">
+            <div class="widget-int num-count">{{DashBoardCounts.employerCount}}</div>
+            <div class="widget-title" ><a routerLink="/employer">Employer</a></div>
+            <div class="widget-subtitle">On your website</div>
+        </div>                           
           <div class="widget-controls">                                
               <a  class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
           </div>                             
@@ -21,14 +22,14 @@
       
       <!-- START WIDGET MESSAGES -->
       <div class="widget widget-default widget-item-icon">
-          <div class="widget-item-left">
-              <span class="fa fa-envelope"></span>
-          </div>                             
-          <div class="widget-data">
-              <div class="widget-int num-count">48</div>
-              <div class="widget-title">New messages</div>
-              <div class="widget-subtitle">In your mailbox</div>
-          </div>      
+        <div class="widget-item-left">
+            <span class="fa fa-user"></span>
+        </div>
+        <div class="widget-data">
+            <div class="widget-int num-count">{{DashBoardCounts.jobseekerCount}}</div>
+            <div class="widget-title"><a routerLink="/jobSeeker">Job-Seeker</a></div>
+            <div class="widget-subtitle">On your website</div>
+        </div>      
           <div class="widget-controls">                                
               <a  class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
           </div>
@@ -44,8 +45,8 @@
               <span class="fa fa-user"></span>
           </div>
           <div class="widget-data">
-              <div class="widget-int num-count">375</div>
-              <div class="widget-title">Registred users</div>
+              <div class="widget-int num-count">{{DashBoardCounts.pendingJobseekerCount}}</div>
+              <div class="widget-title"><a routerLink="/replacement">Pending Request</a></div>
               <div class="widget-subtitle">On your website</div>
           </div>
           <div class="widget-controls">                                

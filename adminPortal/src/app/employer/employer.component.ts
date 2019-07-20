@@ -26,6 +26,7 @@ export class EmployerComponent implements OnInit {
   }
 
   getEmployers(){
+    
     this.pageSection ='list';
     this.filter = {}
     this.AppService.getEmployers().subscribe(data =>{
@@ -34,6 +35,7 @@ export class EmployerComponent implements OnInit {
           this.employerList = data.data;
       }
     });
+    this.AppService.triggerDashBoardCount();
   }
 
   editEmployer(employer){

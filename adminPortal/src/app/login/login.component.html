@@ -3,30 +3,29 @@
       <div class="login-logo"></div>
       <div class="login-body">
           <div class="login-title"><strong>Welcome</strong>, Please login</div>
-          <form  class="form-horizontal" >
-          <div class="form-group">
+          <div class="row form-group">
               <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Username"/>
+                  <input type="text" class="form-control" [(ngModel)]="User.username" placeholder="Username"/>
               </div>
           </div>
-          <div class="form-group">
+          <div class="row form-group">
               <div class="col-md-12">
-                  <input type="password" class="form-control" placeholder="Password"/>
+                  <input type="password" class="form-control" [(ngModel)]="User.password" placeholder="Password"/>
               </div>
           </div>
-          <div class="form-group">
+          
+          <div class="row form-group">
               <div class="col-md-6">
-                  <a  class="btn btn-link btn-block">Forgot your password?</a>
+                  <!-- <a  class="btn btn-link btn-block">Forgot your password?</a> -->
               </div>
               <div class="col-md-6">
-                  <button class="btn btn-info btn-block" (click)="login()">Log In</button>
+                  <button class="btn btn-info btn-block" [attr.disabled]="(User.username && User.password)?null:true" (click)="login()">Log In</button>
               </div>
           </div>
-          </form>
       </div>
       <div class="login-footer">
           <div class="pull-left">
-              &copy; 2014 Vision Helper
+              &copy; 2019 Vision Helper
           </div>
           <div class="pull-right">
               <a >About</a> |

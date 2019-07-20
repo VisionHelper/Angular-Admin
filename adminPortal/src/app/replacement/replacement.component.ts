@@ -31,7 +31,9 @@ export class ReplacementComponent implements OnInit {
       if(data.success){
         this.replacementReqList = data.data;
       }
-    })
+    });
+    
+    this.AppService.triggerDashBoardCount();
   }
 
   getReason(obj:any,status:string){

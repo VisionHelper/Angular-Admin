@@ -19,6 +19,7 @@
                     <th>Sr No</th>
                     <th>Name</th>
                     <th>Mobile Number</th>
+                    <th>Area</th>
                     <th>User Type</th>
                     <th>Count</th>
                   </tr>
@@ -29,6 +30,7 @@
                     <td>{{(pageNo*10-10)+(i+1)}}</td>
                     <td>{{reference.name}}</td>
                     <td>{{reference.mobileNumber}}</td>
+                    <td>{{reference.area}} {{reference.city}}</td>
                     <td>{{reference.userType}}</td>
                     <td>{{reference.numOfReferenceCount}}
                       <i class="fa fa-eye" title="Show Details" data-toggle="modal" data-target="#ReferenceDetails" (click)="ReferenceDetails=reference.referredToList"></i>
